@@ -2,6 +2,7 @@ import '../globals.css'
 import Header from '@/components/Header';
 import Slider from '@/components/Slider';
 import ProductsContainer from '@/components/ProductsContainer';
+import React, { createContext, useContext, useState } from 'react';
 
 export default function Home() {
   return (

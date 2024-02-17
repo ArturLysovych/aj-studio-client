@@ -16,7 +16,8 @@ const SliderItem = ({ className }: { className: string }): JSX.Element => {
                 </div>
                 <Image src={firstImage} alt='slide image' className='bg-opacity-50 h-[150px] z-20 absolute bottom-0 right-[-75px] sm:h-[270px] lg:h-[400px] lg:right-0' />
             </div>
-            <div className="justify-center items-center gap-[10px] absolute bottom-[30px] left-[50%] ml-[-85px] lg:ml-[-130px] z-20 hidden md:flex">
+            {/* md:flex */}
+            <div className="justify-center items-center gap-[10px] absolute bottom-[30px] left-[50%] ml-[-85px] lg:ml-[-130px] z-20 hidden">
                 <div className="w-[50px] h-[50px] flex justify-center items-center border-[2px] border-white rounded-lg cursor-pointer lg:h-[80px] lg:w-[80px]">
                     <Image src={exampleItem} alt="example icon" />
                 </div>

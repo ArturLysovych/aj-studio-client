@@ -2,13 +2,16 @@ import Image from "next/image";
 import { IProduct } from "@/interfaces";
 import cart from '../assets/images/cart-icon.svg';
 
-interface IProps { product: IProduct };
+interface IProps { 
+  product: IProduct; 
+  addProduct: any;
+}
 
-const Product = ({ product }: IProps):JSX.Element => {
+const Product = ({ product, addProduct }: IProps):JSX.Element => {
   return (
     <div className="h-[481px] w-[245px] flex flex-col justify-between items-start relative overflow-hidden">
         <div className="absolute flex">
-          {JSON.parse(product.tags).map((tag: string, index: number) => (
+          {product.tags.map((tag: string, index: number) => (
             index === 0 ? (
               <div key={index} className="w-[65px] h-[31px] uppercase text-white font-bold text-[10px] pb-[4px] bg-[#0077FF] rounded-ss-3xl rounded-ee-3xl z-10 flex justify-center items-center">{tag}</div>
             ) : (
@@ -31,7 +34,7 @@ const Product = ({ product }: IProps):JSX.Element => {
             <div className="w-[10px] h-[10px] rounded-full bg-green-500"></div>
           </div>
         </div>
-        <button className='w-full h-[60px] bg-[#E7E9EB] rounded-3xl flex justify-center items-center gap-[12px] text-[20px] text-[#11293B]'>
+        <button onClick={() => addProduct(product)} className='w-full h-[60px] bg-[#E7E9EB] rounded-3xl flex justify-center items-center gap-[12px] text-[20px] text-[#11293B]'>
           <Image src={cart} alt='cart icon' />
           Add to cart
         </button>

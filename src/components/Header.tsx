@@ -6,6 +6,7 @@ import logo from '../assets/images/logo.svg';
 import user_icon from '../assets/images/header/User.svg';
 import cart_icon from '../assets/images/header/cart.svg'; 
 import heart_icon from '../assets/images/header/heart.svg'; 
+import arrow_icon from '../assets/images/header/arrow.svg';
 
 const Header:FC = ():JSX.Element => {
   return (
@@ -20,11 +21,21 @@ const Header:FC = ():JSX.Element => {
             </div>
           </div>
           <Image src={logo} alt='logo icon' />
-          <div className="md:flex justify-center items-center gap-[29px]">
+          <div className="hidden md:flex justify-center items-center gap-[29px]">
             <Image src={user_icon} alt="header icon here" />
             <Image src={heart_icon} alt="header icon here" />
             <Image src={cart_icon} alt="header icon here" />
-          </div>
+      </div>
+      <div className="hidden md:flex justify-center items-center gap-[10px]">
+        <div className="w-[70px] h-[30px] bg-[#E7E9EB] rounded-2xl text-[12px] font-normal flex justify-center items-center gap-[6px]">
+          <p>ENG</p>
+          <Image src={arrow_icon} alt="arrow icon" />
+        </div>
+        <div className="w-[70px] h-[30px] bg-[#E7E9EB] rounded-2xl text-[12px] font-normal flex justify-center items-center gap-[6px]">
+          <p>USD</p>
+          <Image src={arrow_icon} alt="arrow icon" />
+        </div>
+      </div>
           <div className="flex flex-col justify-center items-center gap-[5px] cursor-pointer md:hidden">
             <div className="w-[25px] h-[2px] bg-[#11293B]"></div>
             <div className="w-[25px] h-[2px] bg-[#11293B]"></div>

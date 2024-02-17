@@ -15,9 +15,7 @@ const Slider: FC = (): JSX.Element => {
       pagination={{clickable: true}}
       slidesPerView={1}
       centeredSlides
-      onSlideChange={() => console.log("slide change")}
       className="h-[220px] sm:h-[300px] md:h-[350px] lg:h-[441px] w-full flex mt-[20px]"
-      onSwiper={swiper => console.log(swiper)}
     >
       <SwiperSlide>
         <SliderItem className={"bg-[#FFDC62]"} />
