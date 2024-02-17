@@ -3,3 +3,8 @@
 @tailwind utilities;
 
 
+@layer {
+    .appContainer {
+        @apply container max-w-screen-lg;
+    }
+}
