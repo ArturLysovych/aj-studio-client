@@ -1,5 +1,6 @@
-import { FC } from "react"
-import Image from 'next/image'
+'use client'
+import { FC } from "react";
+import Image from 'next/image';
 import sidelist from '../assets/images/sidelist.svg';
 import search from '../assets/images/search.svg';
 import logo from '../assets/images/logo.svg';
@@ -7,8 +8,15 @@ import user_icon from '../assets/images/header/User.svg';
 import cart_icon from '../assets/images/header/cart.svg'; 
 import heart_icon from '../assets/images/header/heart.svg'; 
 import arrow_icon from '../assets/images/header/arrow.svg';
+import useCartStore from "@/store/store";
 
-const Header:FC = ():JSX.Element => {
+interface IHeaderProps {
+  toggleCart: () => void;
+}
+
+const Header: FC<IHeaderProps> = ({ toggleCart }): JSX.Element => {
+  const cart = useCartStore((state: any) => state.cart);
+
   return (
     <div className="w-full h-[60px] mt-[25px] flex justify-between items-center">
           <div className="h-full flex justify-between items-center gap-[10px]">
@@ -24,7 +32,10 @@ const Header:FC = ():JSX.Element => {
           <div className="hidden md:flex justify-center items-center gap-[29px]">
             <Image src={user_icon} alt="header icon here" />
             <Image src={heart_icon} alt="header icon here" />
-            <Image src={cart_icon} alt="header icon here" />
+            <div className="flex items-center gap-[6px] cursor-pointer" onClick={() => toggleCart()}>
+              <Image src={cart_icon} alt="header icon here" />
+              <span className="h-[28px] w-[28px] rounded-full bg-[#F67280] shadow-sm shadow-[#F67280] text-white text-[16px] flex justify-center items-center">{ cart.length }</span>
+            </div>
       </div>
       <div className="hidden md:flex justify-center items-center gap-[10px]">
         <div className="w-[70px] h-[30px] bg-[#E7E9EB] rounded-2xl text-[12px] font-normal flex justify-center items-center gap-[6px]">

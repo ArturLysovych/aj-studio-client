@@ -1,12 +1,17 @@
 'use client'
-import { FC } from "react"
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from "react";
 import { IProduct } from "@/interfaces";
 import Product from "./Product";
+import useCartStore from "@/store/store";
 
 const ProductsContainer: FC = (): JSX.Element => {
     const [products, setProducts] = useState<IProduct[]>([]);
-    const [cart, setCart] = useState<IProduct[]>([]);
+    const cart = useCartStore((state: any) => state.cart);
+    const addToTheCart = useCartStore((state: any) => state.addToTheCart); 
+    
+    useEffect(() => {
+        console.log(cart);      
+    }, [cart]);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -28,7 +33,7 @@ const ProductsContainer: FC = (): JSX.Element => {
     }, []);
     
     const addProduct = (product: IProduct) => {
-        setCart(prevCart => [...prevCart, product]);
+        addToTheCart(product);
     }
 
     return (
