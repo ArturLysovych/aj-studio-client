@@ -8,10 +8,6 @@ const ProductsContainer: FC = (): JSX.Element => {
     const [products, setProducts] = useState<IProduct[]>([]);
     const cart = useCartStore((state: any) => state.cart);
     const addToTheCart = useCartStore((state: any) => state.addToTheCart); 
-    
-    useEffect(() => {
-        console.log(cart);      
-    }, [cart]);
 
     useEffect(() => {
         const fetchProducts = async () => {
