@@ -1,13 +1,59 @@
 import Image from "next/image";
 import { IProduct } from "@/interfaces";
 import cart from '../assets/images/cart-icon.svg';
+import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 interface IProps { 
   product: IProduct; 
   addProduct: any;
+  updateLikes: any;
 }
 
-const Product = ({ product, addProduct }: IProps): JSX.Element => {
+const Product = ({ product, addProduct, updateLikes }: IProps): JSX.Element => {
+  const [token, setToken] = useState('');
+  
+  useEffect(() => {
+    const accessToken = Cookies.get('access_token');
+    if (accessToken) {
+      setToken(accessToken);
+    } else if (!accessToken) {
+      console.log('Please authorize');
+    }
+  }, []);
+
+  const getUserFromToken = (token: string) => {
+    try {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.user;
+    } catch (error) {
+      return null;
+    }
+  };
+
+  const likeProduct = async (productId: string) => {
+    try {
+      const userId = getUserFromToken(token)._id;
+      const response = await fetch(`http://localhost:5000/users/${userId}/like/${productId}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to like product');
+      }
+  
+      const responseData = await response.json();
+      updateLikes();
+      console.log(responseData);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
   return (
     <div className="h-[481px] w-[245px] flex flex-col justify-between items-start relative overflow-hidden">
       <div className="absolute flex">
@@ -34,9 +80,13 @@ const Product = ({ product, addProduct }: IProps): JSX.Element => {
           <div className="w-[10px] h-[10px] rounded-full bg-green-500"></div>
         </div>
       </div>
+      
       <button onClick={() => addProduct(product)} className='w-full h-[60px] bg-[#E7E9EB] rounded-3xl flex justify-center items-center gap-[12px] text-[20px] text-[#11293B]'>
         <Image src={cart} alt='cart icon' />
         Add to cart
+      </button>
+      <button onClick={() => likeProduct(product._id)} className='h-[20px] w-[40px] bg-[#E7E9EB] rounded-3xl flex self-end justify-center items-center gap-[12px] text-[12px] text-[#11293B]'>
+        Like
       </button>
     </div>
   );

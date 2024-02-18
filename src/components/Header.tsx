@@ -8,7 +8,7 @@ import user_icon from '../assets/images/header/User.svg';
 import cart_icon from '../assets/images/header/cart.svg'; 
 import heart_icon from '../assets/images/header/heart.svg'; 
 import arrow_icon from '../assets/images/header/arrow.svg';
-import useCartStore from "@/store/store";
+import useCartStore from "@/store/cart.store";
 
 interface IHeaderProps {
   toggleCart: () => void;

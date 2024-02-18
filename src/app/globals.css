@@ -21,3 +21,8 @@
     background: #888;
     border-radius: 10px;
 }
+
+::selection {
+    background: #E7E9EB;
+    color: #333;
+}

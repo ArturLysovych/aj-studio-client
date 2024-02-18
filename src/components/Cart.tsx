@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react';
-import useCartStore from "@/store/store";
+import useCartStore from "@/store/cart.store";
 import { IProduct } from '@/interfaces';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
@@ -42,8 +42,6 @@ const Cart = ({ isCartVisible, toggleCart }: IProps) => {
       cart: cart
     };
 
-    console.log(JSON.stringify(postData))
-
     const response = await fetch('http://localhost:5000/orders/make-order', {
       method: 'POST',
       headers: {
@@ -53,7 +51,7 @@ const Cart = ({ isCartVisible, toggleCart }: IProps) => {
       body: JSON.stringify(postData)
     });
 
-    const responseData = await response.json();
+    // const responseData = await response.json();
     const responseStatus = response.status;
 
     if (responseStatus === 200) {
@@ -65,7 +63,7 @@ const Cart = ({ isCartVisible, toggleCart }: IProps) => {
   }
 
   return (
-    <div className={`w-[300px] h-[200px] bg-[#ffffff] fixed top-[120px] right-[18%] rounded-l-3xl rounded-r-md shadow-[#b4b9be] shadow-md z-20 overflow-y-auto py-[20px] px-[10px] ${isCartVisible ? 'block' : 'hidden'}`}>
+    <div className={`w-[300px] h-[200px] bg-[#ffffff] fixed top-[120px] right-[18%] rounded-3xl shadow-[#b4b9be] shadow-md z-20 overflow-y-auto py-[20px] px-[10px] ${isCartVisible ? 'block' : 'hidden'}`}>
       {cart.length > 0 ?
         <>
           <h2 className='text-center text-lg font-medium'>Your cart:</h2>
