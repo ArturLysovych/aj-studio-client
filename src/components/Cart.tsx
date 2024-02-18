@@ -13,14 +13,15 @@ interface IProps {
 
 const Cart = ({ isCartVisible, toggleCart }: IProps) => {
   const cart = useCartStore((state: any) => state.cart);
+  const totalPrice = useCartStore((state: any) => state.totalPrice);
   const clearCart = useCartStore((state: any) => state.clearCart);
+  const removeFromCart = useCartStore((state: any) => state.removeFromCart);
   const [token, setToken] = useState('');
-
+  
   useEffect(() => {
     const accessToken = Cookies.get('access_token');
     if (accessToken) {
       setToken(accessToken);
-      console.log(accessToken);
     } else if (!accessToken) {
       console.log('Please authorize');
     }
@@ -55,8 +56,6 @@ const Cart = ({ isCartVisible, toggleCart }: IProps) => {
     const responseData = await response.json();
     const responseStatus = response.status;
 
-    console.log(responseData);
-
     if (responseStatus === 200) {
       alert('Successfully ordered');
       clearCart();
@@ -66,20 +65,21 @@ const Cart = ({ isCartVisible, toggleCart }: IProps) => {
   }
 
   return (
-    <div className={`w-[300px] h-[200px] bg-[#ffffff] fixed top-[120px] right-[18%] rounded-md shadow-[#b4b9be] shadow-md z-20 overflow-y-auto py-[20px] px-[10px] ${isCartVisible ? 'block' : 'hidden'}`}>
+    <div className={`w-[300px] h-[200px] bg-[#ffffff] fixed top-[120px] right-[18%] rounded-l-3xl rounded-r-md shadow-[#b4b9be] shadow-md z-20 overflow-y-auto py-[20px] px-[10px] ${isCartVisible ? 'block' : 'hidden'}`}>
       {cart.length > 0 ?
         <>
-          <h2 className='text-center'>Your cart:</h2>
+          <h2 className='text-center text-lg font-medium'>Your cart:</h2>
           {cart.map((item: IProduct, index: number) => (
-            <div key={index} className='w-full h-[60px] flex justify-around items-center rounded-sm bg-[#E7E9EB] mt-[10px]'>
+            <div key={index} onClick={() => removeFromCart(index)} className='relative w-full h-[60px] flex justify-around items-center border-[5px] border-[#E7E9EB] rounded-md mt-[10px]'>
               <Image width={40} height={40} src={'http://localhost:5000/uploads' + item.image} alt="item image" />
               <p>{item.name}</p>
               <p>${item.price}</p>
               <p className='line-through text-sm'>${item.oldPrice}</p>
+              <div className="opacity-0 transition-all duration-300 hover:opacity-100 cursor-pointer w-full h-full absolute bg-red-500 rounded-sm uppercase flex justify-center items-center text-white text-lg font-medium">Remove</div>
             </div>
           ))}
-          
-          <button className='mt-[10px] bg-[#E7E9EB] h-[40px] w-full' onClick={createOrder}>Order</button>
+          <p className='w-full flex justify-start my-[10px] font-medium text-[16px]'>Total price: <span className='ml-[4px] font-semibold text-red-500'>${totalPrice()}</span></p>
+          <button className='mt-[10px] bg-[#E7E9EB] h-[40px] w-full font-bold rounded-lg' onClick={createOrder}>Order</button>
         </>
       : <p className='m-[20px] text-center text-lg'>The cart is empty</p>}
     </div>

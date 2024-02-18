@@ -6,7 +6,6 @@ import useCartStore from "@/store/store";
 
 const ProductsContainer: FC = (): JSX.Element => {
     const [products, setProducts] = useState<IProduct[]>([]);
-    const cart = useCartStore((state: any) => state.cart);
     const addToTheCart = useCartStore((state: any) => state.addToTheCart); 
 
     useEffect(() => {
@@ -33,7 +32,7 @@ const ProductsContainer: FC = (): JSX.Element => {
     }
 
     return (
-        <div className="mt-[45px] w-full flex justify-center flex-wrap gap-[40px]">
+        <div className="mt-[45px] w-full flex justify-center flex-wrap gap-[40px] pb-[50px]">
             {products.map((product: IProduct, key) => 
                 <Product product={product} key={key} addProduct={addProduct} />
             )}

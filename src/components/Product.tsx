@@ -19,7 +19,7 @@ const Product = ({ product, addProduct }: IProps): JSX.Element => {
           )
         ))}
       </div>
-      <div className="h-[275px] w-full flex justify-center items-center bg-[#68EAEB] rounded-3xl">
+      <div className="h-[275px] w-full flex justify-center items-center bg-white border-[5px] border-[#E7E9EB] rounded-3xl">
         <Image width={200} height={200} src={'http://localhost:5000/uploads/' + product.image} alt='product image' className='h-auto w-auto' />
       </div>
       <h2 className='font-bold text-[18px]'>{product.name}</h2>
