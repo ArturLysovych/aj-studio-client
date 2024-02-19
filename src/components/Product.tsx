@@ -87,7 +87,7 @@ const Product = ({ product, addProduct }: IProps): JSX.Element => {
             <Image src={cart} alt='cart icon' />
             Add to cart
           </button>
-          {likes.some(like => like._id === product._id) ? (
+          {Array.isArray(likes) && likes.some(like => like._id === product._id) ? (
             <motion.div
               className="like-icon"
               onClick={() => likeProduct(product._id)}
