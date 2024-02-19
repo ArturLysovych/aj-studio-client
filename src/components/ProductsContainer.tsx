@@ -4,11 +4,7 @@ import { IProduct } from "@/interfaces";
 import Product from "./Product";
 import useCartStore from "@/store/cart.store";
 
-interface IProps {
-    updateLikes: () => Promise<void>;
-}
-
-const ProductsContainer: FC<IProps> = ({ updateLikes }): JSX.Element => {
+const ProductsContainer: FC = (): JSX.Element => {
     const [products, setProducts] = useState<IProduct[]>([]);
     const addToTheCart = useCartStore((state: any) => state.addToTheCart); 
 
@@ -38,7 +34,7 @@ const ProductsContainer: FC<IProps> = ({ updateLikes }): JSX.Element => {
     return (
         <div className="mt-[45px] w-full flex justify-center flex-wrap gap-[40px] pb-[50px]">
             {products.map((product: IProduct, key) => 
-                <Product product={product} key={key} addProduct={addProduct} updateLikes={updateLikes} />
+                <Product product={product} key={key} addProduct={addProduct} />
             )}
         </div>
     )

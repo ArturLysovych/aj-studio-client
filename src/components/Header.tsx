@@ -10,12 +10,10 @@ import heart_icon from '../assets/images/header/heart.svg';
 import arrow_icon from '../assets/images/header/arrow.svg';
 import useCartStore from "@/store/cart.store";
 
-interface IHeaderProps {
-  toggleCart: () => void;
-}
-
-const Header: FC<IHeaderProps> = ({ toggleCart }): JSX.Element => {
+const Header: FC = (): JSX.Element => {
   const cart = useCartStore((state: any) => state.cart);
+  const changeCartVisible = useCartStore((state: any) => state.toggleVisible);
+  const toggleVisible = () => changeCartVisible();
 
   return (
     <div className="w-full h-[60px] mt-[25px] flex justify-between items-center">
@@ -32,7 +30,7 @@ const Header: FC<IHeaderProps> = ({ toggleCart }): JSX.Element => {
           <div className="hidden md:flex justify-center items-center gap-[29px]">
             <Image src={user_icon} alt="header icon here" />
             <Image src={heart_icon} alt="header icon here" />
-            <div className="flex items-center gap-[6px] cursor-pointer" onClick={() => toggleCart()}>
+            <div className="flex items-center gap-[6px] cursor-pointer" onClick={toggleVisible}>
               <Image src={cart_icon} alt="header icon here" />
               <span className="h-[28px] w-[28px] rounded-full bg-[#F67280] shadow-sm shadow-[#F67280] text-white text-[16px] flex justify-center items-center">{ cart.length }</span>
             </div>

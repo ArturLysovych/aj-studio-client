@@ -1,18 +1,15 @@
 'use client'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import useCartStore from "@/store/cart.store";
 import { IProduct } from '@/interfaces';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
 
-interface IProps {
-  isCartVisible: boolean;
-  toggleCart: () => void;
-}
-
-const Cart = ({ isCartVisible, toggleCart }: IProps) => {
+const Cart:FC = () => {
   const cart = useCartStore((state: any) => state.cart);
+  const isVisible = useCartStore((state: any) => state.isVisible);
+  const changeCartVisible = useCartStore((state: any) => state.toggleVisible);
   const totalPrice = useCartStore((state: any) => state.totalPrice);
   const clearCart = useCartStore((state: any) => state.clearCart);
   const removeFromCart = useCartStore((state: any) => state.removeFromCart);
@@ -60,10 +57,12 @@ const Cart = ({ isCartVisible, toggleCart }: IProps) => {
     } else if (responseStatus === 401 || responseStatus === 403) {
       alert('Please authorize to place an order.');
     }
-  }
+  };
 
+  const toggleVisible = () => changeCartVisible();
+  
   return (
-    <div className={`w-[300px] h-[200px] bg-[#ffffff] fixed top-[120px] right-[18%] rounded-3xl shadow-[#b4b9be] shadow-md z-20 overflow-y-auto py-[20px] px-[10px] ${isCartVisible ? 'block' : 'hidden'}`}>
+    <div className={`w-[300px] h-[200px] bg-[#ffffff] fixed top-[120px] right-[18%] rounded-3xl shadow-[#b4b9be] shadow-md z-20 overflow-y-auto py-[20px] px-[10px] ${isVisible ? 'block' : 'hidden'}`}>
       {cart.length > 0 ?
         <>
           <h2 className='text-center text-lg font-medium'>Your cart:</h2>
