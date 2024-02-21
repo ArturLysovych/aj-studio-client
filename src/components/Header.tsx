@@ -1,5 +1,5 @@
 'use client'
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import Image from 'next/image';
 import sidelist from '../assets/images/sidelist.svg';
 import search from '../assets/images/search.svg';
@@ -9,11 +9,18 @@ import cart_icon from '../assets/images/header/cart.svg';
 import heart_icon from '../assets/images/header/heart.svg'; 
 import arrow_icon from '../assets/images/header/arrow.svg';
 import useCartStore from "@/store/cart.store";
+import useTokenStore from "@/store/token.store";
 
 const Header: FC = (): JSX.Element => {
   const cart = useCartStore((state: any) => state.cart);
+  const user = useTokenStore((state: any) => state.user);
+  const [userName, setUserName] = useState('');
   const changeCartVisible = useCartStore((state: any) => state.toggleVisible);
   const toggleVisible = () => changeCartVisible();
+
+  useEffect(() => {
+    if (user) setUserName(user.username);
+  }, [user]);
 
   return (
     <div className="w-full h-[60px] mt-[25px] flex justify-between items-center">
@@ -26,9 +33,12 @@ const Header: FC = (): JSX.Element => {
               <input className="bg-transparent w-full h-[30px] outline-none border-none" type="text" placeholder='Search' />
             </div>
           </div>
-          <Image src={logo} alt='logo icon' />
+          <Image src={logo} alt='logo icon' onDoubleClick={() => window.location.href += '/admin'}  />
           <div className="hidden md:flex justify-center items-center gap-[29px]">
-            <Image src={user_icon} alt="header icon here" />
+            <div className="flex justify-center items-center gap-[15px]">
+              <p className="text-md font-medium">{ userName? userName : '' }</p>
+              <Image className="cursor-pointer" src={user_icon} alt="header icon here" onClick={() => window.location.href += '/auth'} />
+            </div>
             <Image src={heart_icon} alt="header icon here" />
             <div className="flex items-center gap-[6px] cursor-pointer" onClick={toggleVisible}>
               <Image src={cart_icon} alt="header icon here" />

@@ -3,6 +3,7 @@ import { IProduct } from '@/interfaces';
 import React from 'react'
 import { useState, useEffect } from 'react'
 import Image from 'next/image';
+import ProductAdmin from './ProductAdmin';
 
 export default function ProductsList() {
     const [products, setProducts] = useState<IProduct[]>([]);
@@ -18,16 +19,9 @@ export default function ProductsList() {
     }, []);
 
     return (
-        <div className='flex flex-col gap-[20px] mt-[20px]'>
-            <h2 className='text-3xl'>Products</h2>
+        <div className='flex flex-wrap justify-center gap-[20px] my-[20px]'>
             {products.map((product: IProduct) => (
-                <div key={product._id} className='flex justify-between gap-[40px] bg-red-500'>
-                    <Image width={40} height={40} src={'http://localhost:5000/uploads' + product.image} alt="item image" />
-                    <p>{product.name}</p>
-                    <p>{product._id}</p>
-                    <p>{product.price}</p>
-                    <button className='bg-black text-white ml-[50px]'>Remove</button>
-                </div>
+                <ProductAdmin product={product}  />
             ))}
         </div>
     )

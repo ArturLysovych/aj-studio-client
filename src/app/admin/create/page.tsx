@@ -1,10 +1,10 @@
-import Dashboard from '@/components/DashBoard';
+import CreateProduct from '@/components/CreateProduct';
 import AdminLayout from '@/layouts/AdminLayout';
 
 const Admin = (): JSX.Element => {
     return (
         <AdminLayout>
-            <Dashboard />
+            <CreateProduct />
         </AdminLayout>
     );
 };

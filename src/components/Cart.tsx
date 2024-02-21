@@ -5,16 +5,19 @@ import { IProduct } from '@/interfaces';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
+import usePopupStore from "@/store/popup.store";
 
 const Cart:FC = () => {
   const cart = useCartStore((state: any) => state.cart);
   const isVisible = useCartStore((state: any) => state.isVisible);
-  const changeCartVisible = useCartStore((state: any) => state.toggleVisible);
   const totalPrice = useCartStore((state: any) => state.totalPrice);
   const clearCart = useCartStore((state: any) => state.clearCart);
   const removeFromCart = useCartStore((state: any) => state.removeFromCart);
   const [token, setToken] = useState('');
-  
+  const [responseData, setResponseData] = useState('');
+  const setResponse = usePopupStore(state => state.setResponse);
+  const res = usePopupStore(state => state.responseData);
+
   useEffect(() => {
     const accessToken = Cookies.get('access_token');
     if (accessToken) {
@@ -52,17 +55,17 @@ const Cart:FC = () => {
     const responseStatus = response.status;
 
     if (responseStatus === 200) {
-      alert('Successfully ordered');
+      setResponse('Successfully ordered')
       clearCart();
     } else if (responseStatus === 401 || responseStatus === 403) {
-      alert('Please authorize to place an order.');
+      setResponse('Please authorize to place an order.')
+      clearCart();
     }
   };
 
-  const toggleVisible = () => changeCartVisible();
-  
   return (
-    <div className={`w-[300px] h-[200px] bg-[#ffffff] fixed top-[120px] right-[18%] rounded-3xl shadow-[#b4b9be] shadow-md z-20 overflow-y-auto py-[20px] px-[10px] ${isVisible ? 'block' : 'hidden'}`}>
+    <>
+      <div className={`w-[300px] h-[200px] bg-[#ffffff] fixed top-[120px] right-[18%] rounded-xl shadow-[#b4b9be] shadow-md z-30 overflow-y-auto py-[20px] px-[10px] ${isVisible ? 'block' : 'hidden'}`}>
       {cart.length > 0 ?
         <>
           <h2 className='text-center text-lg font-medium'>Your cart:</h2>
@@ -79,7 +82,8 @@ const Cart:FC = () => {
           <button className='mt-[10px] bg-[#E7E9EB] h-[40px] w-full font-bold rounded-lg' onClick={createOrder}>Order</button>
         </>
       : <p className='m-[20px] text-center text-lg'>The cart is empty</p>}
-    </div>
+      </div>
+    </>
   );
 }
 

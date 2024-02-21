@@ -15,6 +15,7 @@ interface IProps {
 const Product = ({ product, addProduct }: IProps): JSX.Element => {
   const [userId, setUserId] = useState<string>('');
   const [likes, setLikes] = useState<IProduct[]>([]);
+  const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);
 
   useEffect(() => {
     const accessToken = Cookies.get('access_token');
@@ -56,8 +57,7 @@ const Product = ({ product, addProduct }: IProps): JSX.Element => {
   }
   
   return (
-    <div className="h-[481px] w-[245px] flex flex-col justify-between items-start relative overflow-hidden">
-      <div className="h-[481px] w-[245px] flex flex-col justify-between items-start relative overflow-hidden">
+    <div className="h-[481px] w-[245px] flex flex-col justify-between items-start relative">
         <div className="absolute flex">
           {product.tags.map((tag: string, index: number) => (
             index === 0 ? (
@@ -83,10 +83,21 @@ const Product = ({ product, addProduct }: IProps): JSX.Element => {
           </div>
         </div>
         <div className="w-full flex items-center justify-between">
-          <button onClick={() => addProduct(product)} className='w-full h-[60px] bg-[#E7E9EB] rounded-3xl flex justify-center items-center gap-[12px] text-[20px] text-[#11293B]'>
+          <motion.button 
+          onClick={() => {
+            addProduct(product);
+            setIsAddedToCart(true);
+            setTimeout(() => {
+              setIsAddedToCart(false);
+            }, 3000);
+          }} 
+            className={`w-full h-[60px] bg-[#E7E9EB] rounded-3xl flex justify-center items-center gap-[12px] text-[20px] text-[#11293B]}`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             <Image src={cart} alt='cart icon' />
-            Add to cart
-          </button>
+            {isAddedToCart ? "Added to Cart" : "Add to Cart"}
+          </motion.button>
           {Array.isArray(likes) && likes.some(like => like._id === product._id) ? (
             <motion.div
               className="like-icon"
@@ -116,7 +127,6 @@ const Product = ({ product, addProduct }: IProps): JSX.Element => {
             </motion.div>
           )}
         </div>
-      </div>
     </div>
   );
 }

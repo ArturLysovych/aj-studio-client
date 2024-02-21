@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 import '../globals.css';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
+import usePopupStore from '@/store/popup.store';
+import Popup from '@/components/Popup';
 
 interface IFormInput {
     username: string;
@@ -12,6 +14,8 @@ interface IFormInput {
 
 export default function Home() {
     const [formType, setFormType] = useState('login');
+    const setResponse = usePopupStore(state => state.setResponse);
+    const res = usePopupStore(state => state.responseData);
 
     const { 
         register, 
@@ -33,9 +37,9 @@ export default function Home() {
 
             if (responseStatus === 200) {
                 Cookies.set('access_token', responseData.token);
-                alert('Succesfully login');
+                setResponse('Succesfully login');
             } else {
-                alert(responseData.message);
+                setResponse(responseData.message);
             }
         } else if (formType === 'register') {
             const response = await fetch('http://localhost:5000/auth/register', {
@@ -48,9 +52,9 @@ export default function Home() {
             const responseStatus = response.status;
 
             if (responseStatus === 201) {
-                alert('Succesfully registered');
+                setResponse('Succesfully registered');
             } else {
-                alert('Something went wrong');
+                setResponse('Something went wrong');
             }
         }
     };
@@ -61,6 +65,7 @@ export default function Home() {
 
     return (
         <div className="w-full h-screen flex justify-center items-center overflow-hidden relative">
+            <Popup responseData={res} />
             <Link href={"/"} className='absolute top-[25px] left-[25px] p-[5px] bg-[#E7E9EB] rounded-xl cursor-pointer'>Back to Home</Link>
             <div className="appContainer px-[10px] flex justify-center items-center">
                 <form 
@@ -75,10 +80,10 @@ export default function Home() {
                         {...register('username', { required: true })} 
                     />
                     <input 
-                        type="text" 
+                        type="password" 
                         placeholder='password' 
                         className='py-[5px] px-[8px] outline-none' 
-                        {...register('password', { required: true })} 
+                        {...register('password', { required: true })}
                     />
 
                     <button type="submit" className='p-[5px] bg-white font-medium'>Submit</button>
