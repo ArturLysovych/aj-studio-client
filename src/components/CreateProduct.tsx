@@ -2,16 +2,16 @@
 import React, { useState } from 'react';
 import useTokenStore from '@/store/token.store';
 import Select from 'react-select';
-import { v4 as uuidv4 } from 'uuid';
 import usePopupStore from '@/store/popup.store';
 
 export default function CreateProduct() {
-    const [selectId] = useState(() => uuidv4());
     const token = useTokenStore((state: any) => state.token);
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
-    const [oldPrice, setOldPrice] = useState('');
+    const [description, setdescription] = useState('');
     const [tags, setTags] = useState('');
+    const [colors, setColors] = useState('');
+    const [sizes, setSizes] = useState('');
     const [image, setImage] = useState<File | null>(null);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const setResponse = usePopupStore(state => state.setResponse);
@@ -21,9 +21,28 @@ export default function CreateProduct() {
         { value: 'new', label: 'New' },
     ];
 
+    const colorsOptions = [
+        { value: 'black', label: 'Black' },
+        { value: 'red', label: 'Red' },
+        { value: 'orange', label: 'Orange' },
+        { value: 'yellow', label: 'Yellow' },
+        { value: 'green', label: 'Green' },
+    ];
+
+    const sizeOptions = [
+        { value: '38', label: '38' },
+        { value: '39', label: '39' },
+        { value: '40', label: '40' },
+        { value: '41', label: '41' },
+        { value: '42', label: '42' },
+        { value: '43', label: '43' },
+        { value: '44', label: '44' },
+        { value: '45', label: '45' },
+    ];
+
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value);
     const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => setPrice(e.target.value);
-    const handleOldPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => setOldPrice(e.target.value);
+    const handledescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => setdescription(e.target.value);
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files && e.target.files[0];
         if (file) {
@@ -46,11 +65,17 @@ export default function CreateProduct() {
         if (price !== '') {
             formData.append('price', price);
         }
-        if (oldPrice !== '') {
-            formData.append('oldPrice', oldPrice);
+        if (description !== '') {
+            formData.append('description', description);
         }
         if (tags.length > 0) {
             formData.append('tags', JSON.stringify(tags));
+        }
+        if (colors.length > 0) {
+            formData.append('colors', JSON.stringify(colors));
+        }
+        if (sizes.length > 0) {
+            formData.append('sizes', JSON.stringify(sizes));
         }
         if (image) {
             formData.append('image', image, image.name);
@@ -60,7 +85,6 @@ export default function CreateProduct() {
             console.log(key, value);
         });
         
-    
         try {
             const response = await fetch(`http://localhost:5000/products`, {
                 method: 'POST',
@@ -71,8 +95,11 @@ export default function CreateProduct() {
             });
             const responseData = await response.json();
             console.log(responseData);
+
             setResponse('Succesfully created!');
-            window.location.href = '/admin/products/'
+            setTimeout(() => {
+                // window.location.href = '/admin/products/';
+            }, 2000);
         } catch (error) {
             setResponse('Failed to create product!');
             console.error('Failed to create product:', error);
@@ -80,7 +107,7 @@ export default function CreateProduct() {
     };     
 
     return (
-        <div className='w-full h-[calc(100vh-75px)] flex flex-col justify-center items-center gap-[20px] md:gap-[50px]'>
+        <div className='w-full min-h-[calc(100vh-75px)] flex flex-col justify-center items-center gap-[20px] md:gap-[50px] my-[20px]'>
 
             <h2 className='text-3xl font-bold'>Creating ...</h2>
 
@@ -102,15 +129,36 @@ export default function CreateProduct() {
                 <div className="flex flex-col gap-[10px] w-[300px] md:gap-[20px]">
                     <input className='w-full shadow-sm py-[4px] px-[8px] outline-none rounded-md' type="text" placeholder='Name' value={name} onChange={handleNameChange} />
                     <input className='w-full shadow-sm py-[4px] px-[8px] outline-none rounded-md' type="text" placeholder='Price' value={price} onChange={handlePriceChange} />
-                    <input className='w-full shadow-sm py-[4px] px-[8px] outline-none rounded-md' type="text" placeholder='Old Price' value={oldPrice} onChange={handleOldPriceChange} />
+                    <textarea 
+                        className='w-full flex justify-start items-start shadow-sm py-[4px] px-[8px] outline-none rounded-md resize-none' 
+                        placeholder='Description'
+                        value={description} 
+                        onChange={handledescriptionChange} 
+                        style={{ width: '100%', height: '80px' }}
+                    />
                     <Select
                         closeMenuOnSelect={false}
                         isMulti
-                        id={selectId}
-                        instanceId={selectId}
                         options={options}
                         className='w-full shadow-sm'
+                        placeholder='Tags'
                         onChange={(selectedOptions: any) => setTags(selectedOptions.map((option: any) => option.value))}
+                    />
+                    <Select
+                        closeMenuOnSelect={false}
+                        isMulti
+                        options={colorsOptions}
+                        className='w-full shadow-sm'
+                        placeholder='Colors'
+                        onChange={(selectedOptions: any) => setColors(selectedOptions.map((option: any) => option.value))}
+                    />
+                    <Select
+                        closeMenuOnSelect={false}
+                        isMulti
+                        options={sizeOptions}
+                        className='w-full shadow-sm'
+                        placeholder='Sizes'
+                        onChange={(selectedOptions: any) => setSizes(selectedOptions.map((option: any) => option.value))}
                     />
                     <button className='bg-white p-[4px] rounded-md w-full shadow-sm' type='submit'>Create</button>
                 </div>

@@ -24,15 +24,13 @@ const ProductAdmin = ({ product }: IProps): JSX.Element => {
             <Image width={200} height={200} src={'http://localhost:5000/uploads/' + product.image} alt='product image' className='h-auto w-auto' />
             </div>
             <h2 className='font-bold text-[18px]'>{product.name}</h2>
-            <p><span className='text-red-500'>${product.price} </span><span className='line-through'>${product.oldPrice}</span></p>
+            <p><span className='text-red-500'>${product.price} </span><span className='line-through'>{product.oldPrice !== ''? `$${product.oldPrice}` : '' }</span></p>
             <div className="w-full flex justify-between items-center">
             <div className="pb-[10px] pt-[5px] px-[20px] bg-[#458EF6] bg-opacity-25 text-[#458EF6] text-[10px] font-bold rounded-3xl">Colors</div>
             <div className="flex gap-[8px]">
-                <div className="w-[10px] h-[10px] rounded-full bg-black"></div>
-                <div className="w-[10px] h-[10px] rounded-full bg-red-500"></div>
-                <div className="w-[10px] h-[10px] rounded-full bg-orange-500"></div>
-                <div className="w-[10px] h-[10px] rounded-full bg-yellow-500"></div>
-                <div className="w-[10px] h-[10px] rounded-full bg-green-500"></div>
+            {product.colors.map((color: string, index: number) => (
+                <div key={index} style={{ background: color || 'black'}} className="w-[10px] h-[10px] rounded-full"></div>
+            ))}
             </div>
             </div>
             <div className="w-full flex items-center justify-between">

@@ -14,8 +14,10 @@ const Admin = (): JSX.Element => {
     const token = useTokenStore((state: any) => state.token);
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
-    const [oldPrice, setOldPrice] = useState('');
+    const [description, setdescription] = useState('');
     const [tags, setTags] = useState('');
+    const [colors, setColors] = useState('');
+    const [sizes, setSizes] = useState('');
     const [image, setImage] = useState<File | null>(null);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     
@@ -50,9 +52,28 @@ const Admin = (): JSX.Element => {
         { value: 'new', label: 'New' },
     ];
 
+    const colorsOptions = [
+        { value: 'black', label: 'Black' },
+        { value: 'red', label: 'Red' },
+        { value: 'orange', label: 'Orange' },
+        { value: 'yellow', label: 'Yellow' },
+        { value: 'green', label: 'Green' },
+    ];
+
+    const sizeOptions = [
+        { value: '38', label: '38' },
+        { value: '39', label: '39' },
+        { value: '40', label: '40' },
+        { value: '41', label: '41' },
+        { value: '42', label: '42' },
+        { value: '43', label: '43' },
+        { value: '44', label: '44' },
+        { value: '45', label: '45' },
+    ];
+
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value);
     const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => setPrice(e.target.value);
-    const handleOldPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => setOldPrice(e.target.value);
+    const handledescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => setdescription(e.target.value);
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files && e.target.files[0];
         if (file) {
@@ -75,11 +96,17 @@ const Admin = (): JSX.Element => {
         if (price !== '') {
             formData.append('price', price);
         }
-        if (oldPrice !== '') {
-            formData.append('oldPrice', oldPrice);
+        if (description !== '') {
+            formData.append('description', description);
         }
         if (tags.length > 0) {
-            formData.append('tags', tags);
+            formData.append('tags', JSON.stringify(tags));
+        }
+        if (colors.length > 0) {
+            formData.append('colors', JSON.stringify(colors));
+        }
+        if (sizes.length > 0) {
+            formData.append('sizes', JSON.stringify(sizes));
         }
         if (image) {
             formData.append('image', image, image.name);
@@ -98,11 +125,11 @@ const Admin = (): JSX.Element => {
                 body: formData
             });
             const responseData = await response.json();
-            console.log(responseData);
 
+            console.log(responseData)
             setResponse('Changed succesfully!');
         } catch (error) {
-            console.error('Failed to create product:', error);
+            console.error('Failed to change product:', error);
         }
     };
 
@@ -118,14 +145,14 @@ const Admin = (): JSX.Element => {
 
             setResponse('Deleted succesfully');
         } catch (error) {
-            console.error('Failed to create product:', error);
+            console.error('Failed to remove product:', error);
         }
     };
 
     return (
         <AdminLayout>
-            <div className='w-full h-[calc(100vh-75px)] flex flex-col justify-center items-center gap-[20px] my-[20px] md:gap-[50px]'>
-                <div className="flex gap-[20px]">
+            <div className='w-full min-h-[calc(100vh-75px)] flex flex-col justify-center items-center gap-[20px] my-[20px] md:gap-[50px]'>
+                <div className="flex gap-[20px] flex-col items-center sm:flex-row">
                     <h2 className='text-3xl font-bold'>Editing ...</h2>
                     <h2 className='w-[300px] text-center text-xl'>Product ID: <span className='font-medium'>{ productId }</span></h2>
                 </div>
@@ -148,13 +175,35 @@ const Admin = (): JSX.Element => {
                     <div className="flex flex-col gap-[10px] w-[300px] md:gap-[20px]">
                         <input className='shadow-sm w-full py-[4px] px-[8px] outline-none rounded-md' type="text" placeholder='Name' value={name} onChange={handleNameChange} />
                         <input className='shadow-sm w-full py-[4px] px-[8px] outline-none rounded-md' type="text" placeholder='Price' value={price} onChange={handlePriceChange} />
-                        <input className='shadow-sm w-full py-[4px] px-[8px] outline-none rounded-md' type="text" placeholder='Old Price' value={oldPrice} onChange={handleOldPriceChange} />
+                        <textarea 
+                            className='w-full flex justify-start items-start shadow-sm py-[4px] px-[8px] outline-none rounded-md resize-none' 
+                            placeholder='Description'
+                            value={description} 
+                            onChange={handledescriptionChange} 
+                            style={{ width: '100%', height: '80px' }}
+                        />
                         <Select
                             closeMenuOnSelect={false}
                             isMulti
                             options={options}
                             className='w-full shadow-sm'
                             onChange={(selectedOptions: any) => setTags(selectedOptions.map((option: any) => option.value))}
+                        />
+                        <Select
+                            closeMenuOnSelect={false}
+                            isMulti
+                            options={colorsOptions}
+                            className='w-full shadow-sm'
+                            placeholder='Colors'
+                            onChange={(selectedOptions: any) => setColors(selectedOptions.map((option: any) => option.value))}
+                        />
+                        <Select
+                            closeMenuOnSelect={false}
+                            isMulti
+                            options={sizeOptions}
+                            className='w-full shadow-sm'
+                            placeholder='Sizes'
+                            onChange={(selectedOptions: any) => setSizes(selectedOptions.map((option: any) => option.value))}
                         />
                         <button className='bg-white shadow-sm p-[4px] rounded-md w-full hover:font-bold transition-all duration-300' type='submit'>Edit</button>
                         <button className='bg-red-500 shadow-sm text-white p-[4px] rounded-md w-full' type='submit' onClick={() => removeProduct(productId)}>Remove product</button>

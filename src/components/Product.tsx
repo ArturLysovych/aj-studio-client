@@ -6,16 +6,16 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { IoHeartCircleSharp } from "react-icons/io5";
 import { motion } from 'framer-motion';
+import useGoodPopupStore from '@/store/good.store';
 
 interface IProps { 
   product: IProduct; 
-  addProduct: any;
 }
 
-const Product = ({ product, addProduct }: IProps): JSX.Element => {
+const Product = ({ product }: IProps): JSX.Element => {
   const [userId, setUserId] = useState<string>('');
-  const [likes, setLikes] = useState<IProduct[]>([]);
-  const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);
+  const [likes, setLikes] = useState<String[]>([]);
+  const { isShow, good, setIsShow, setGood } = useGoodPopupStore();
 
   useEffect(() => {
     const accessToken = Cookies.get('access_token');
@@ -26,7 +26,7 @@ const Product = ({ product, addProduct }: IProps): JSX.Element => {
     } else console.log('Please authorize');
   }, []);
 
-  useEffect(() => { if (userId) getLikes(userId); }, [userId]);
+  useEffect(() => { if (userId) getLikes(userId); console.log(product.oldPrice)}, [userId]);
 
   const getLikes = async (userId: string) => {
     try {
@@ -55,6 +55,26 @@ const Product = ({ product, addProduct }: IProps): JSX.Element => {
       console.error(error);
     }
   }
+
+  const viewProduct = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/users/${userId}/view/${product._id}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${Cookies.get('access_token')}`
+        }
+      });
+      
+      if (!response.ok) throw new Error('Failed to view product');
+  
+      const res = await response.json();
+
+      console.log(res);
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
   
   return (
     <div className="h-[481px] w-[245px] flex flex-col justify-between items-start relative">
@@ -71,46 +91,47 @@ const Product = ({ product, addProduct }: IProps): JSX.Element => {
           <Image width={200} height={200} src={'http://localhost:5000/uploads/' + product.image} alt='product image' className='h-auto w-auto' />
         </div>
         <h2 className='font-bold text-[18px]'>{product.name}</h2>
-        <p><span className='text-red-500'>${product.price} </span><span className='line-through'>${product.oldPrice}</span></p>
+        <p><span className='text-red-500'>${product.price} </span><span className='line-through'>{product.oldPrice !== ''? `$${product.oldPrice}` : '' }</span></p>
         <div className="w-full flex justify-between items-center">
           <div className="pb-[10px] pt-[5px] px-[20px] bg-[#458EF6] bg-opacity-25 text-[#458EF6] text-[10px] font-bold rounded-3xl">Colors</div>
-          <div className="flex gap-[8px]">
-            <div className="w-[10px] h-[10px] rounded-full bg-black"></div>
-            <div className="w-[10px] h-[10px] rounded-full bg-red-500"></div>
-            <div className="w-[10px] h-[10px] rounded-full bg-orange-500"></div>
-            <div className="w-[10px] h-[10px] rounded-full bg-yellow-500"></div>
-            <div className="w-[10px] h-[10px] rounded-full bg-green-500"></div>
+        <div className="flex gap-[8px]">
+          {product.colors.map((color: string, index: number) => (
+            <div key={index} style={{background: color}} className="w-[10px] h-[10px] rounded-full"></div>
+          ))}
           </div>
         </div>
         <div className="w-full flex items-center justify-between">
           <motion.button 
           onClick={() => {
-            addProduct(product);
-            setIsAddedToCart(true);
-            setTimeout(() => {
-              setIsAddedToCart(false);
-            }, 3000);
+            // addProduct(product);
+            // setIsAddedToCart(true);
+            // setTimeout(() => {
+            //   setIsAddedToCart(false);
+            // }, 3000);
+            setIsShow()
+            setGood(product)
+            viewProduct()
           }} 
             className={`w-full h-[60px] bg-[#E7E9EB] rounded-3xl flex justify-center items-center gap-[12px] text-[20px] text-[#11293B]}`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <Image src={cart} alt='cart icon' />
-            {isAddedToCart ? "Added to Cart" : "Add to Cart"}
-          </motion.button>
-          {Array.isArray(likes) && likes.some(like => like._id === product._id) ? (
-            <motion.div
-              className="like-icon"
-              onClick={() => likeProduct(product._id)}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <IoHeartCircleSharp
-                className="h-[70px] w-[70px] self-end cursor-pointer"
-                fill="#ef4444"
-                key={product._id}
-              />
-            </motion.div>
+            View
+        </motion.button>
+          {Array.isArray(likes) && likes.some(like => like === product._id) ? (
+          <motion.div
+            className="like-icon"
+            onClick={() => likeProduct(product._id)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <IoHeartCircleSharp
+              className="h-[70px] w-[70px] self-end cursor-pointer"
+              fill="#ef4444"
+              key={product._id}
+            />
+          </motion.div>
           ) : (
             <motion.div
               className="like-icon"
@@ -121,7 +142,6 @@ const Product = ({ product, addProduct }: IProps): JSX.Element => {
               <IoHeartCircleSharp
                 className="h-[70px] w-[70px] self-end cursor-pointer"
                 fill="#E7E9EB"
-                onClick={() => likeProduct(product._id)}
                 key={product._id}
               />
             </motion.div>
