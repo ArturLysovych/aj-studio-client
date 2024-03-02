@@ -8,6 +8,7 @@ import { FaUser } from "react-icons/fa";
 import { GrView } from "react-icons/gr";
 import { TbDiscount2 } from "react-icons/tb";
 import arrow from '../../assets/images/profile/right-arrow.svg'
+import { IoMdNotificationsOutline } from "react-icons/io";
 
 export default function profile() {
     const router = useRouter();
@@ -20,7 +21,9 @@ export default function profile() {
                         <Image src={back} alt='nav icon' />
                     </div>
                     <h2 className='text-[16px] font-medium sm:text-[20px] md:text-[22px]'>Profile</h2>
-                    <div className='h-[50px] w-[50px]'></div>
+                    <div onClick={() => router.push('/profile/notifications')} className='bg-white h-[50px] w-[50px] shadow-sm rounded-full flex justify-center items-center cursor-pointer'>
+                        <IoMdNotificationsOutline size={24} />
+                    </div>
                 </div>
                 <div className="w-full flex flex-col justify-start items-start gap-[20px] mt-[25px]">
                     <div className="flex gap-[12px]">

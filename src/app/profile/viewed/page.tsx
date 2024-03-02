@@ -42,15 +42,15 @@ export default function Viewed() {
                 <h2 className='text-[16px] font-medium sm:text-[20px] md:text-[22px]'>Viewed products</h2>
                 <div className='h-[50px] w-[50px]'></div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col-reverse">
             {viewed.map((product: any, key) => (
                 <div key={key}
-                    className='bg-red-500 overflow-hidden relative w-full h-[150px] sm:h-[150px] flex justify-between items-center rounded-md mt-[30px]'
+                    className='bg-purple-500 overflow-hidden relative w-full h-[150px] sm:h-[150px] flex justify-between items-center rounded-md mt-[30px]'
                 >
-                    <div className="h-full overflow-y-auto w-[50%] gap-[16px] flex justify-center items-center bg-green-500 p-[10px]">
+                    <div className="h-full overflow-y-auto w-[50%] gap-[16px] flex justify-center items-center p-[10px]">
                         <Image width={150} height={150} src={'http://localhost:5000/uploads' + product.image} alt='product icon' />
                     </div>
-                    <div className="h-full w-[50%] flex flex-col justify-center gap-[10px] p-[10px] items-start bg-purple-500 text-[#1A2530]">
+                    <div className="h-full w-[50%] flex flex-col justify-center gap-[10px] p-[10px] items-start text-[#1A2530]">
                       <p className='text-[14px] font-medium sm:text-[18px]'>Created: {new Date(product.createdAt).toLocaleString()}</p>
                       <p className='text-[16px] font-medium sm:text-[22px]'>{product.name}</p>
                       <p className='text-[16px] font-medium sm:text-[22px]'>{product.title}</p>

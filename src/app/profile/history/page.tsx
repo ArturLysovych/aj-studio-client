@@ -42,12 +42,12 @@ export default function History() {
                 <h2 className='text-[16px] font-medium sm:text-[20px] md:text-[22px]'>Orders History</h2>
                 <div className='h-[50px] w-[50px]'></div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col-reverse ">
             {orders.map((order: any, key) => (
                 <div key={key}
                     className='bg-red-500 relative w-full h-[200px] sm:h-[150px] flex justify-between items-center rounded-md mt-[30px]'
                 >
-                    <div className="h-[200px] overflow-y-auto w-[50%] gap-[16px] justify-start bg-green-500 p-[10px]">
+                    <div className="h-full overflow-y-auto w-[50%]">
                       {/* <div className="h-[85px] w-[85px] flex justify-center items-center bg-[white] rounded-2xl shadow-gray-100 shadow-lg sm:h-[150px] sm:w-[150px]">
                         <Image width={85} height={85} src={'http://localhost:5000/uploads' + order.image} className='sm:w-full' alt="item image" />
                       </div> */}
@@ -60,8 +60,8 @@ export default function History() {
                     </div>
                     <div className="h-full w-[50%] flex flex-col justify-center gap-[20px] p-[10px] items-start bg-purple-500 text-[#1A2530]">
                       <p className='text-[14px] font-medium sm:text-[18px]'>Created: {new Date(order.createdAt).toLocaleString()}</p>
-                      <p className='text-[16px] font-medium sm:text-[22px]'>{order.status}</p>
-                      <p className='text-[14px] w-[50px] font-medium sm:text-[18px]'>{order._id}</p>
+                      <p className='text-[16px] font-medium sm:text-[22px]'>Status: {order.status}</p>
+                      <p className='text-[14px] font-medium sm:text-[18px]'>ID: {order._id}</p>
                         {/* <Image width={20} height={20} className='cursor-pointer sm:h-[30px] sm:w-[30px]' alt="remove icon" /> */}
                     </div>
                   </div>

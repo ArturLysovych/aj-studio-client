@@ -37,7 +37,7 @@ const Header: FC = (): JSX.Element => {
           <div className="hidden md:flex justify-center items-center gap-[29px]">
             <div className="flex justify-center items-center gap-[15px]">
               <p className="text-md font-medium">{ userName? userName : '' }</p>
-              <Image className="cursor-pointer" src={user_icon} alt="header icon here" onClick={() => window.location.href += '/auth'} />
+              <Image className="cursor-pointer" src={user_icon} alt="header icon here" onClick={() => window.location.href += '/profile'} />
             </div>
             <Image src={heart_icon} alt="header icon here" />
             <div className="flex items-center gap-[6px] cursor-pointer" onClick={toggleVisible}>

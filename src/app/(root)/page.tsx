@@ -47,6 +47,7 @@ export default function Home() {
       ): null}
         
       <Cart />
+      
       <GoodItemPopup />
       {/* )} */}
       <Popup responseData={responseData} />
