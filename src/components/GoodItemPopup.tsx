@@ -13,12 +13,7 @@ export default function GoodItemPopup() {
     const [selectedSize, setSelectedSize] = useState<string | null>(null);
     const addToTheCart = useCartStore((state: any) => state.addToTheCart);
     const setResponse = usePopupStore(state => state.setResponse);
-
-    useEffect(() => {
-        console.log(isShow);
-        console.log(good);
-    }, [isShow, good]);
-
+    
     const addToCart = (product: any) => {
         if (selectedSize) {
             const productWithSize = { ...product, size: selectedSize };

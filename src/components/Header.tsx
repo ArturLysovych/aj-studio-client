@@ -10,6 +10,7 @@ import heart_icon from '../assets/images/header/heart.svg';
 import arrow_icon from '../assets/images/header/arrow.svg';
 import useCartStore from "@/store/cart.store";
 import useTokenStore from "@/store/token.store";
+import useSavedStore from "@/store/saved.store";
 
 const Header: FC = (): JSX.Element => {
   const cart = useCartStore((state: any) => state.cart);
@@ -17,6 +18,7 @@ const Header: FC = (): JSX.Element => {
   const [userName, setUserName] = useState('');
   const changeCartVisible = useCartStore((state: any) => state.toggleVisible);
   const toggleVisible = () => changeCartVisible();
+  const toggleSavedVisible = useSavedStore((state: any) => state.toggleVisible);
 
   useEffect(() => {
     if (user) setUserName(user.username);
@@ -39,7 +41,7 @@ const Header: FC = (): JSX.Element => {
               <p className="text-md font-medium">{ userName? userName : '' }</p>
               <Image className="cursor-pointer" src={user_icon} alt="header icon here" onClick={() => window.location.href += '/profile'} />
             </div>
-            <Image src={heart_icon} alt="header icon here" />
+            <Image className="cursor-pointer" src={heart_icon} alt="header icon here" onClick={toggleSavedVisible} />
             <div className="flex items-center gap-[6px] cursor-pointer" onClick={toggleVisible}>
               <Image src={cart_icon} alt="header icon here" />
               <span className="h-[28px] w-[28px] rounded-full bg-[#F67280] shadow-sm shadow-[#F67280] text-white text-[16px] flex justify-center items-center">{ cart.length }</span>

@@ -6,7 +6,7 @@ interface ISaved {
 }
 
 const useSavedStore = create<ISaved>((set) => ({
-  isVisible: false,
+  isVisible: true,
   toggleVisible: () => {
     set((state: any) => ({ isVisible: !state.isVisible }));
   }

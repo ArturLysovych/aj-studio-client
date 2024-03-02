@@ -26,7 +26,7 @@ const Product = ({ product }: IProps): JSX.Element => {
     } else console.log('Please authorize');
   }, []);
 
-  useEffect(() => { if (userId) getLikes(userId); console.log(product.oldPrice)}, [userId]);
+  useEffect(() => { if (userId) getLikes(userId) }, [userId]);
 
   const getLikes = async (userId: string) => {
     try {
@@ -69,7 +69,7 @@ const Product = ({ product }: IProps): JSX.Element => {
   
       const res = await response.json();
 
-      console.log(res);
+      // console.log(res);
 
     } catch (error) {
       console.error(error);

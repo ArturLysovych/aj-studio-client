@@ -12,13 +12,16 @@ import Popup from '@/components/Popup';
 import GoodItemPopup from '@/components/GoodItemPopup';
 import useGoodPopupStore from '@/store/good.store';
 import useCartStore from '@/store/cart.store';
+import Saved from '@/components/Saved';
+import useSavedStore from '@/store/saved.store';
 
 export default function Home() {
   // const [loading, setLoading] = useState<boolean>(true);
   // const [scaleVal, setScaleVal] = useState(50);
   const responseData = usePopupStore(state => state.responseData);
   const { isShow, good, setIsShow, setGood } = useGoodPopupStore();
-  const isVisible = useCartStore((state: any) => state.isVisible);
+  const isVisibleCart = useCartStore((state: any) => state.isVisible);
+  const isVisibleSaved = useSavedStore((state: any) => state.isVisible);
   
   // useEffect(() => {
   //   setScaleVal(150);
@@ -34,7 +37,7 @@ export default function Home() {
           </div>
       )} */}
       {/* {loading ? null: ( */}
-      {!isShow && !isVisible ? (
+      {!isShow && !isVisibleCart && !isVisibleSaved  ? (
         <div className="appContainer px-[10px] flex flex-col justify-center items-center relative">
           {/* Header */}
           <Header />
@@ -47,7 +50,7 @@ export default function Home() {
       ): null}
         
       <Cart />
-      
+      <Saved />
       <GoodItemPopup />
       {/* )} */}
       <Popup responseData={responseData} />
