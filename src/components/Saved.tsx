@@ -6,12 +6,25 @@ import { jwtDecode } from 'jwt-decode';
 import back from '../assets/images/goodPopup/back.svg';
 import useSavedStore from '@/store/saved.store';
 import { IoMdHeartEmpty } from "react-icons/io";
+import { localizationConstants } from '@/constants';
+import useSelectStore from '@/store/select.store';
 
 const Saved: FC = () => {
     const isVisible = useSavedStore((state: any) => state.isVisible);
     const toggleVisible = useSavedStore((state: any) => state.toggleVisible);
     const [token, setToken] = useState('');
     const [likes, setLikes] = useState([]);
+
+    const { lang } = useSelectStore();
+    const [textData, setTextData] = useState<any>(); 
+
+    useEffect(() => {
+        if (lang && lang in localizationConstants) {
+            setTextData(localizationConstants[lang]);
+        } else {
+            console.error(`Localization not found for language '${lang}'`);
+        }
+    }, [lang]);
 
     useEffect(() => {
         const accessToken = Cookies.get('access_token');
@@ -59,7 +72,7 @@ const Saved: FC = () => {
                     <div onClick={toggleVisible} className="h-[50px] w-[50px] shadow-sm rounded-full flex justify-center items-center cursor-pointer bg-[#FFFFFF]">
                         <Image src={back} alt='nav icon' />
                     </div>
-                    <h2 className='text-[16px] font-medium sm:text-[20px] md:text-[22px]'>Saved</h2>
+                    <h2 className='text-[16px] font-medium sm:text-[20px] md:text-[22px]'>{ textData?.saved }</h2>
                     <div className='h-[50px] w-[50px]'></div>
                 </div>
                 <div className="pr-[20px] pb-[30px] mt-[25px] text-[#1A2530] flex flex-wrap gap-[20px]">

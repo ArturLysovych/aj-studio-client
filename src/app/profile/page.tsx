@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import back from '../../assets/images/goodPopup/back.svg';
@@ -9,9 +9,22 @@ import { GrView } from "react-icons/gr";
 import { TbDiscount2 } from "react-icons/tb";
 import arrow from '../../assets/images/profile/right-arrow.svg'
 import { IoMdNotificationsOutline } from "react-icons/io";
+import useTokenStore from '@/store/token.store';
 
 export default function profile() {
     const router = useRouter();
+    const { user } = useTokenStore();
+    // const username = user?.username;
+    const [userName, setUserName] = useState<string|undefined>('');
+    const [userEmail, setUserEmail] = useState<string|undefined>('');
+
+    useEffect(() => {
+        setTimeout(() => {
+            setUserName(user?.username);
+            setUserEmail(user?.email);
+        }, 500);
+    }, [])
+    console.log(user)
 
     return (
         <div className='w-full h-screen py-[8px] px-[20px] flex flex-col justify-between items-center bg-[#F8F9FA]'>
@@ -31,8 +44,12 @@ export default function profile() {
                             <FaUser size={28} color='white' />
                         </div>
                         <div className="flex flex-col">
-                            <h2 className='text-lg'>user name</h2>
-                            <h2 className='text-sm text-gray-400'>username@gmail.com</h2>            
+                        <h2 className='text-lg'>
+                            {userName? userName : 'Loading'}
+                        </h2>
+                        <h2 className='text-sm text-gray-400 underline cursor-pointer' onClick={() => router.push('/profile/settings/bind-email')}>
+                            {userEmail?.trim() !== ''? userEmail : 'Bind Email'}
+                        </h2>            
                         </div>
                     </div>
 

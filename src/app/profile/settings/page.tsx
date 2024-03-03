@@ -21,25 +21,25 @@ export default function account() {
             </div>
             <h2 className='mt-[25px] font-semibold text-[18px]'>Account</h2>
             <div className="w-full flex flex-col gap-[16px] mt-[25px]">
-                <div className="h-[40px] border-b flex justify-between items-start cursor-pointer">
+                <div className="h-[40px] border-b flex justify-between items-start cursor-pointer" onClick={() => router.push('/profile/settings/bind-email')}>
                     <div className="flex items-center justify-center gap-[20px]">
                         <Image src={notify} alt='nav icon' />
-                        <p>Notification Setting</p>
+                        <p>Bind email</p>
                     </div>
                     <Image src={arrow} alt='nav icon' />
                 </div>
-                <div className="h-[40px] border-b flex justify-between items-start cursor-pointer">
+                <div className="h-[40px] border-b flex justify-between items-start cursor-pointer" onClick={() => router.push('/profile/settings/delete-account')}>
+                    <div className="flex items-center justify-center gap-[20px]">
+                        <Image src={remove} alt='nav icon' />
+                        <p>Delete Account</p>
+                    </div>
+                </div>
+                <div className="h-[40px] border-b flex justify-between items-start cursor-pointer" onClick={() => router.push('/profile/settings/shipping-address')}>
                     <div className="flex items-center justify-center gap-[20px]">
                         <Image src={ship} alt='nav icon' />
                         <p>Shipping Address</p>
                     </div>
                     <Image src={arrow} alt='nav icon' />
-                </div>
-                <div className="h-[40px] border-b flex justify-between items-start cursor-pointer">
-                    <div className="flex items-center justify-center gap-[20px]">
-                        <Image src={remove} alt='nav icon' />
-                        <p>Delete Account</p>
-                    </div>
                 </div>
             </div>
             <h2 className='mt-[25px] font-semibold text-[18px]'>App Settings</h2>

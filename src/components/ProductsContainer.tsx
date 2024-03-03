@@ -2,10 +2,22 @@
 import { FC, useEffect, useState } from "react";
 import { IProduct } from "@/interfaces";
 import Product from "./Product";
-import useCartStore from "@/store/cart.store";
+import { localizationConstants } from "@/constants";
+import useSelectStore from "@/store/select.store";
 
 const ProductsContainer: FC = (): JSX.Element => {
     const [products, setProducts] = useState<IProduct[]>([]);
+    const [UAH_Value, setUAH_Value] = useState<number>(0);
+    const { lang } = useSelectStore();
+    const [textData, setTextData] = useState<any>(); 
+
+    useEffect(() => {
+        if (lang && lang in localizationConstants) {
+            setTextData(localizationConstants[lang]);
+        } else {
+            console.error(`Localization not found for language '${lang}'`);
+        }
+    }, [lang]);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -23,14 +35,25 @@ const ProductsContainer: FC = (): JSX.Element => {
             }
         };
 
+        const getUAH = async () => {
+            try {
+                const response = await fetch('https://open.er-api.com/v6/latest/USD');
+                const data = await response.json();
+                const UAH_Value = data.rates.UAH;
+                setUAH_Value(UAH_Value);
+            } catch (error) {
+                console.error('Error fetching UAH:', error);
+            }
+        };
+
         fetchProducts();
+        getUAH();
     }, []);
-    
 
     return (
         <div className="mt-[45px] w-full flex justify-center flex-wrap gap-[40px] pb-[50px]">
             {products.map((product: IProduct, key) => 
-                <Product product={product} key={key} />
+                <Product product={product} UAH_Value={UAH_Value} key={key} textData={textData} />
             )}
         </div>
     )

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { IProduct } from "@/interfaces";
+import { ILocalization, IProduct } from "@/interfaces";
 import cart from '../assets/images/cart-icon.svg';
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
@@ -7,15 +7,19 @@ import { jwtDecode } from "jwt-decode";
 import { IoHeartCircleSharp } from "react-icons/io5";
 import { motion } from 'framer-motion';
 import useGoodPopupStore from '@/store/good.store';
+import useSelectStore from "@/store/select.store";
 
 interface IProps { 
   product: IProduct; 
+  UAH_Value: number;
+  textData: ILocalization;
 }
 
-const Product = ({ product }: IProps): JSX.Element => {
+const Product = ({ product, UAH_Value, textData }: IProps): JSX.Element => {
   const [userId, setUserId] = useState<string>('');
   const [likes, setLikes] = useState<String[]>([]);
   const { isShow, good, setIsShow, setGood } = useGoodPopupStore();
+  const { lang, currency, setCurrency, setLang } = useSelectStore();
 
   useEffect(() => {
     const accessToken = Cookies.get('access_token');
@@ -91,9 +95,18 @@ const Product = ({ product }: IProps): JSX.Element => {
           <Image width={200} height={200} src={'http://localhost:5000/uploads/' + product.image} alt='product image' className='h-auto w-auto' />
         </div>
         <h2 className='font-bold text-[18px]'>{product.name}</h2>
-        <p><span className='text-red-500'>${product.price} </span><span className='line-through'>{product.oldPrice !== ''? `$${product.oldPrice}` : '' }</span></p>
+        <p className="flex items-center gap-[5px]">
+          <span className='text-red-500'>
+            {currency === 'USD' ? `$${Number(product.price).toFixed()}` : currency === 'UAH' ? `${(Number(product.price) * UAH_Value).toFixed()} UAH` : ''}
+          </span>
+          <span className='line-through'>
+            {product.oldPrice !== '' ? 
+              currency === 'USD' ? `$${Number(product.oldPrice).toFixed()}` : currency === 'UAH' ? `${(Number(product.oldPrice) * UAH_Value).toFixed()} UAH` : ''
+            : ''}
+          </span>
+        </p>
         <div className="w-full flex justify-between items-center">
-          <div className="pb-[10px] pt-[5px] px-[20px] bg-[#458EF6] bg-opacity-25 text-[#458EF6] text-[10px] font-bold rounded-3xl">Colors</div>
+          <div className="pb-[10px] pt-[5px] px-[20px] bg-[#458EF6] bg-opacity-25 text-[#458EF6] text-[10px] font-bold rounded-3xl">{textData.product.colors}</div>
         <div className="flex gap-[8px]">
           {product.colors.map((color: string, index: number) => (
             <div key={index} style={{background: color}} className="w-[10px] h-[10px] rounded-full"></div>
@@ -103,11 +116,6 @@ const Product = ({ product }: IProps): JSX.Element => {
         <div className="w-full flex items-center justify-between">
           <motion.button 
           onClick={() => {
-            // addProduct(product);
-            // setIsAddedToCart(true);
-            // setTimeout(() => {
-            //   setIsAddedToCart(false);
-            // }, 3000);
             setIsShow()
             setGood(product)
             viewProduct()
@@ -117,7 +125,7 @@ const Product = ({ product }: IProps): JSX.Element => {
             whileTap={{ scale: 0.95 }}
           >
             <Image src={cart} alt='cart icon' />
-            View
+            {textData.product.view}
         </motion.button>
           {Array.isArray(likes) && likes.some(like => like === product._id) ? (
           <motion.div

@@ -1,16 +1,32 @@
+'use client'
 import Image from 'next/image'
 import firstImage from '../assets/images/slider/slider-1.svg'
 import exampleItem from '../assets/images/PngItem_4881188.webp';
+import { localizationConstants } from '@/constants';
+import useSelectStore from '@/store/select.store';
+import { useEffect, useState } from 'react';
+import { ILocalization } from '@/interfaces';
 
 const SliderItem = ({ className }: { className: string }): JSX.Element => {
+    const { lang } = useSelectStore();
+    const [textData, setTextData] = useState<ILocalization>(); 
+
+    useEffect(() => {
+        if (lang && lang in localizationConstants) {
+            setTextData(localizationConstants[lang]);
+        } else {
+            console.error(`Localization not found for language '${lang}'`);
+        }
+    }, [lang]);
+
     return (
         <div className={`w-fullx h-full ${className} flex flex-col p-[30px] rounded-3xl sm:px-[40px] sm:py-[44px] lg:px-[73px]`}>
             <div className="h-full w-full flex justify-between items-center">
                 <div className="h-full w-[50%] flex flex-col items-start justify-start sm:justify-center gap-[10px]">
-                    <h2 className='text-[16px] sm:text-[32px] lg:text-[52px]'>Are you ready to <span className='font-bold'>lead the way</span></h2>
-                    <p className='text-[12px] sm:text-[16px] lg:text-[20px]'>Luxury meets ultimate sitting comfort</p>
-                    <button className='bg-black w-[120px] h-[40px] sm:h-[45px] sm:w-[130px] sm:text-[16px] lg:w-[155px] lg:h-[60px] lg:text-[20px] text-[#D0AD37] text-[14px] lg:rounded-[30px] rounded-3xl shadow-black shadow-2xl'>Discover </button>
-                    </div>
+                    <h2 className='text-[16px] sm:text-[32px] lg:text-[52px]'>{ textData?.swiper.main } <span className='font-bold'>{ textData?.swiper.bold }</span></h2>
+                    <p className='text-[12px] sm:text-[16px] lg:text-[20px]'>{ textData?.swiper.description }</p>
+                    <button className='bg-black px-[20px] py-[8px] sm:text-[16px] lg:text-[20px] text-[#D0AD37] text-[14px] lg:rounded-[30px] rounded-3xl shadow-black shadow-2xl'>{ textData?.swiper.button }</button>
+                </div>
                 <div className="w-[50%] h-full flex justify-center items-center relative">
                     <p className='absolute z-10 text-[90px] sm:text-[120px] bottom-0 right-0 lg:text-[240px] lg:bottom-auto lg:right-auto font-bold text-[#000000] text-opacity-15'>HOT</p>
                 </div>

@@ -14,6 +14,7 @@ import useGoodPopupStore from '@/store/good.store';
 import useCartStore from '@/store/cart.store';
 import Saved from '@/components/Saved';
 import useSavedStore from '@/store/saved.store';
+import Deals from '@/components/Deals';
 
 export default function Home() {
   // const [loading, setLoading] = useState<boolean>(true);
@@ -46,6 +47,7 @@ export default function Home() {
           <Slider />
           {/* Catalog */}
           <ProductsContainer />
+          <Deals />
         </div>
       ): null}
         
