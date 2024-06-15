@@ -2,7 +2,6 @@
 import { FC, useEffect, useState } from "react";
 import { IProduct } from "@/interfaces";
 import Product from "./Product";
-import { localizationConstants } from "@/constants";
 import useSelectStore from "@/store/select.store";
 
 const ProductsContainer: FC = (): JSX.Element => {
@@ -10,14 +9,6 @@ const ProductsContainer: FC = (): JSX.Element => {
     const [UAH_Value, setUAH_Value] = useState<number>(0);
     const { lang } = useSelectStore();
     const [textData, setTextData] = useState<any>(); 
-
-    useEffect(() => {
-        if (lang && lang in localizationConstants) {
-            setTextData(localizationConstants[lang]);
-        } else {
-            console.error(`Localization not found for language '${lang}'`);
-        }
-    }, [lang]);
 
     useEffect(() => {
         const fetchProducts = async () => {

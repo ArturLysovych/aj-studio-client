@@ -32,13 +32,13 @@ const Slider: FC = (): JSX.Element => {
     >
       
       <SwiperSlide>
-          <SliderItem className={`bg-[#FFDC62]`} />
+        <SliderItem gen_text="Are You Ready" gen_bold_text="lead the way" p_text="Luxury meets ultimate sitting comfort" className={`bg-[#b0f5ff]`} />
       </SwiperSlide>
       <SwiperSlide>
-          <SliderItem className={`bg-[#FFE2B5]`} />
+        <SliderItem gen_text="Sneakers that" gen_bold_text="change the game!" p_text="Luxury meets ultimate sitting comfort" className={`bg-[#ffe998]`} />
       </SwiperSlide>
       <SwiperSlide>
-        <SliderItem className={`bg-[#D3FBD9]`} />
+        <SliderItem gen_text="Your style," gen_bold_text="your sneakers!" p_text="Luxury meets ultimate sitting comfort" className={`bg-[#D3FBD9]`} />
       </SwiperSlide>
       <div className="h-[50px] gap-[10px] hidden sm:flex flex-col justify-center items-center absolute bottom-0 z-50 left-[50%] ml-[-70px] mb-[10px] rounded-lg">
         <div className="flex items-center justify-between gap-[10px] rounded-lg">

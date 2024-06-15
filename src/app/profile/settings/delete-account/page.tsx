@@ -50,7 +50,7 @@ export default function DeleteAccount() {
 
     return (
         <div className='w-full h-screen flex flex-col justify-between items-center bg-[#F8F9FA] relative px-[20px] py-[8px]'>
-            <div className="w-full max-w-screen-lg flex justify-between items-center">
+            <div className="w-full appContainer flex justify-between items-center">
                 <Link className="bg-white h-[50px] w-[50px] shadow-sm rounded-full flex justify-center items-center cursor-pointer" href={'/profile'}>
                     <Image src={back} alt='nav icon' />
                 </Link>
@@ -58,7 +58,7 @@ export default function DeleteAccount() {
                 <div className='h-[50px] w-[50px]'></div>
             </div>
             <form onSubmit={handleDeleteAccount} className='w-[300px] bg-white shadow-[#dbdbdb] shadow-md rounded-xl p-[15px] flex flex-col gap-[20px]'>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus?</p>
+                <p className='w-[230px]'>Enter your details to confirm this form.</p>
                 <input type="text" className='w-full h-[40px] bg-[#f3f3f3] px-[10px] rounded-md outline-none text-gray-500' placeholder='username' value={username} disabled />
                 <input type="password" className='w-full h-[40px] bg-[#f3f3f3] px-[10px] rounded-md outline-none' placeholder='password' value={password} onChange={(e) => setPassword(e.target.value)} />
                 <div className="flex items-center gap-[10px]">

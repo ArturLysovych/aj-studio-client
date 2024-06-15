@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { IProduct } from "@/interfaces";
 import cart from '../assets/images/cart-icon.svg';
+import Link from "next/link";
 
 interface IProps { 
     product: IProduct; 
@@ -34,10 +35,10 @@ const ProductAdmin = ({ product }: IProps): JSX.Element => {
             </div>
             </div>
             <div className="w-full flex items-center justify-between">
-            <button onClick={() => { window.location.href+= `/edit/${product._id}` }} className='w-full h-[60px] bg-[#E7E9EB] rounded-3xl flex justify-center items-center gap-[12px] text-[20px] text-[#11293B]'>
+            <Link href={`products/edit/${product._id}`} className='w-full h-[60px] bg-[#E7E9EB] rounded-3xl flex justify-center items-center gap-[12px] text-[20px] text-[#11293B]'>
                 <Image src={cart} alt='cart icon' />
                 Edit product
-            </button>
+            </Link>
             </div>
         </div>
   );

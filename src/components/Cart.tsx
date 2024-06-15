@@ -8,7 +8,6 @@ import { jwtDecode } from 'jwt-decode';
 import usePopupStore from "@/store/popup.store";
 import back from '../assets/images/goodPopup/back.svg';
 import remove from '../assets/images/cart/remove.svg';
-import { localizationConstants } from '@/constants';
 import useSelectStore from '@/store/select.store';
 
 const Cart: FC = () => {
@@ -21,16 +20,6 @@ const Cart: FC = () => {
   const [token, setToken] = useState('');
   const setResponse = usePopupStore(state => state.setResponse);
   const { lang } = useSelectStore();
-
-  const [textData, setTextData] = useState<any>(); 
-
-  useEffect(() => {
-      if (lang && lang in localizationConstants) {
-        setTextData(localizationConstants[lang]);
-      } else {
-        console.error(`Localization not found for language '${lang}'`);
-      }
-  }, [lang]);
 
   useEffect(() => {
     const accessToken = Cookies.get('access_token');
@@ -88,7 +77,7 @@ const Cart: FC = () => {
           <div onClick={toggleVisible} className="h-[50px] w-[50px] shadow-sm rounded-full flex justify-center items-center cursor-pointer bg-[#FFFFFF]">
             <Image src={back} alt='nav icon' />
           </div>
-          <h2 className='text-[16px] font-medium sm:text-[20px] md:text-[22px]'>{textData?.cart?.topText}</h2>
+          <h2 className='text-[16px] font-medium sm:text-[20px] md:text-[22px]'>My cart</h2>
           <div className='h-[50px] w-[50px]'></div>
         </div>
         <div className="h-[370px] overflow-auto pr-[20px] pb-[30px]">
@@ -114,16 +103,16 @@ const Cart: FC = () => {
                 </div>
               </div>
             ))}
-          </> : <p className='mt-[40px] text-center text-xl'>{textData?.cart?.empty}</p>}
+          </> : <p className='mt-[40px] text-center text-xl'>The cart is empty</p>}
         </div>
       </div>
       <div className="w-full bg-white shadow-[#707B81] shadow-lg p-[20px] flex justify-center items-center gap-[25px] rounded-t-3xl">
         <div className="w-full h-full max-w-screen-lg flex flex-col lg:flex-row justify-between items-center lg:gap-[40px]">  
           <div className="w-full h-full flex items-start lg:items-center justify-between">
-            <p className='text-[#1A2530] text-[16px] font-medium'>{textData?.cart?.total}</p>
+            <p className='text-[#1A2530] text-[16px] font-medium'>Total Cost</p>
             <h2 className='font-medium text-[20px]'>${ totalPrice().toFixed(2) }</h2>
           </div>
-          <button className='w-full h-[50px] bg-[#5B9EE1] rounded-[50px] text-[#FFFFFF] font-medium lg:w-[300px]' onClick={() => createOrder()}>{textData?.cart?.button}</button>
+          <button className='w-full h-[50px] bg-[#5B9EE1] rounded-[50px] text-[#FFFFFF] font-medium lg:w-[300px]' onClick={() => createOrder()}>Order</button>
         </div>
       </div>      
     </div>

@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import usePopupStore from '@/store/popup.store';
 import Popup from '@/components/Popup';
+import Image from 'next/image';
+import back from '../../assets/images/goodPopup/back.svg';
 
 interface IFormInput {
     username: string;
@@ -64,33 +66,42 @@ export default function Home() {
     };
 
     return (
-        <div className="w-full h-screen flex justify-center items-center overflow-hidden relative">
+        <div className="w-full h-screen flex justify-center bg-[#F8F9FA] items-center overflow-hidden relative">
             <Popup responseData={res} />
-            <Link href={"/"} className='absolute top-[25px] left-[25px] p-[5px] bg-[#E7E9EB] rounded-xl cursor-pointer'>Back to Home</Link>
-            <div className="appContainer px-[10px] flex justify-center items-center">
-                <form 
-                    className='flex flex-col bg-[#E7E9EB] p-[15px] gap-[10px] rounded-xl w-[270px]' 
-                    onSubmit={handleSubmit(onSubmit)}
-                >
-                    <h2 className='font-medium text-center text-lg'>{formType === 'login' ? 'Loggining' : 'Registration'}</h2>
-                    <input 
-                        type="text" 
-                        placeholder='username' 
-                        className='py-[5px] px-[8px] outline-none' 
-                        {...register('username', { required: true })} 
-                    />
-                    <input 
-                        type="password" 
-                        placeholder='password' 
-                        className='py-[5px] px-[8px] outline-none' 
-                        {...register('password', { required: true })}
-                    />
+            <div className="appContainer w-full h-full flex flex-col justify-between py-[8px]">
+                <div className="w-full flex justify-between items-center">
+                    <Link className="bg-white h-[50px] w-[50px] shadow-sm rounded-full flex justify-center items-center cursor-pointer" href={'/'}>
+                        <Image src={back} alt='nav icon' />
+                    </Link>
+                    <h2 className='text-[16px] font-medium sm:text-[20px] md:text-[22px]'>Auth / {formType === 'login' ? 'Loggining' : 'Registration'}</h2>
+                    <div className='h-[50px] w-[50px]'></div>
+                </div>
+                <div className="appContainer px-[10px] flex justify-center items-center">
+                    <form 
+                        className='bg-white w-[300px] shadow-[#dbdbdb] shadow-md rounded-xl p-[15px] flex flex-col gap-[20px]' 
+                        onSubmit={handleSubmit(onSubmit)}
+                    >
+                        <p className='w-[230px]'>Enter your details to confirm this form.</p>
+                        <input 
+                            type="text" 
+                            placeholder='username' 
+                            className='w-full h-[40px] bg-[#f3f3f3] px-[10px] rounded-md outline-none' 
+                            {...register('username', { required: true })} 
+                        />
+                        <input 
+                            type="password" 
+                            placeholder='password' 
+                            className='w-full h-[40px] bg-[#f3f3f3] px-[10px] rounded-md outline-none' 
+                            {...register('password', { required: true })}
+                        />
 
-                    <button type="submit" className='p-[5px] bg-white font-medium'>Submit</button>
-                    <span className='w-full flex justify-end text-[13px] cursor-pointer' onClick={toggleFormType}>
-                        {formType === 'login' ? 'Switch to Registration' : 'Switch to Loggining'}
-                    </span>
-                </form>
+                        <button type="submit" className='w-full h-[40px] bg-[#f3f3f3] px-[10px] rounded-md outline-none '>Submit</button>
+                        <span className='w-full flex justify-end text-[13px] cursor-pointer' onClick={toggleFormType}>
+                            {formType === 'login' ? 'Switch to Registration' : 'Switch to Loggining'}
+                        </span>
+                    </form>
+                </div>
+                <div></div>
             </div>
         </div>
     );

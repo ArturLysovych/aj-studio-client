@@ -56,6 +56,8 @@ export default function ConfirmEmail() {
   }, []);
 
   return (
-    <div className='w-full h-screen flex justify-center items-center text-lg'>EMAIL CONFIRMED!</div>
+    <div className='w-full h-screen flex justify-center items-center text-gray-800 text-[40px] sm:text-[50px] lg:text-[80px] font-bold text-center relative overflow-hidden'>EMAIL <span className='text-[#FF5E00] ml-4'>CONFIRMED!</span>
+      <p className='absolute w-[1440px] text-[100px] sm:text-[140px] lg:text-[250px] z-[-1] text-gray-100 opacity-60'>PJ STUDIO</p>
+    </div>
   );
 }

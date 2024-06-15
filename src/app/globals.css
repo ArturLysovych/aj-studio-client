@@ -4,7 +4,10 @@
 
 @layer {
     .appContainer {
-        @apply container max-w-screen-lg;
+        @apply container max-w-screen-xl;
+    }
+    .deal-icon {
+        @apply w-[64px] h-[64px] rounded-full flex justify-center items-center absolute bg-gray-100;
     }
 }
 
@@ -16,7 +19,7 @@
     background: #f1f1f1;
 }
 ::-webkit-scrollbar-thumb {
-    background: #5B9EE1;
+    background: #d4d4d4;
 }
 
 ::selection {

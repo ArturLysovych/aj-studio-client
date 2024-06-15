@@ -8,6 +8,9 @@ import { IoHeartCircleSharp } from "react-icons/io5";
 import { motion } from 'framer-motion';
 import useGoodPopupStore from '@/store/good.store';
 import useSelectStore from "@/store/select.store";
+import { Router } from "next/router";
+import usePopupStore from '@/store/popup.store';
+import useCartStore from '@/store/cart.store';
 
 interface IProps { 
   product: IProduct; 
@@ -20,6 +23,8 @@ const Product = ({ product, UAH_Value, textData }: IProps): JSX.Element => {
   const [likes, setLikes] = useState<String[]>([]);
   const { isShow, good, setIsShow, setGood } = useGoodPopupStore();
   const { lang, currency, setCurrency, setLang } = useSelectStore();
+  const setResponse = usePopupStore(state => state.setResponse);
+  const addToTheCart = useCartStore((state: any) => state.addToTheCart);
 
   useEffect(() => {
     const accessToken = Cookies.get('access_token');
@@ -79,6 +84,12 @@ const Product = ({ product, UAH_Value, textData }: IProps): JSX.Element => {
       console.error(error);
     }
   }
+
+  const addToCart = (product: any) => {
+    const productWithSize = { ...product, size: 'removable' };
+    addToTheCart(productWithSize);
+    setResponse('Added to the cart');
+  }
   
   return (
     <div className="h-[481px] w-[245px] flex flex-col justify-between items-start relative">
@@ -91,7 +102,12 @@ const Product = ({ product, UAH_Value, textData }: IProps): JSX.Element => {
             )
           ))}
         </div>
-        <div className="h-[275px] w-full flex justify-center items-center bg-white border-[5px] border-[#E7E9EB] rounded-3xl">
+          <div
+            className="h-[275px] cursor-pointer w-full flex justify-center items-center bg-white border-[5px] border-[#E7E9EB] rounded-3xl"
+            onClick={() => {
+              window.location.href = `/products/${product?._id}`
+            }}
+        >
           <Image width={200} height={200} src={'http://localhost:5000/uploads/' + product.image} alt='product image' className='h-auto w-auto' />
         </div>
         <h2 className='font-bold text-[18px]'>{product.name}</h2>
@@ -106,7 +122,7 @@ const Product = ({ product, UAH_Value, textData }: IProps): JSX.Element => {
           </span>
         </p>
         <div className="w-full flex justify-between items-center">
-          <div className="pb-[10px] pt-[5px] px-[20px] bg-[#458EF6] bg-opacity-25 text-[#458EF6] text-[10px] font-bold rounded-3xl">{textData.product.colors}</div>
+          <div className="pb-[10px] pt-[5px] px-[20px] bg-[#458EF6] bg-opacity-25 text-[#458EF6] text-[10px] font-bold rounded-3xl">Colors</div>
         <div className="flex gap-[8px]">
           {product.colors.map((color: string, index: number) => (
             <div key={index} style={{background: color}} className="w-[10px] h-[10px] rounded-full"></div>
@@ -115,17 +131,17 @@ const Product = ({ product, UAH_Value, textData }: IProps): JSX.Element => {
         </div>
         <div className="w-full flex items-center justify-between">
           <motion.button 
-          onClick={() => {
-            setIsShow()
-            setGood(product)
-            viewProduct()
-          }} 
+            onClick={() => {
+              setGood(product)
+              viewProduct()
+              addToCart(product)
+            }} 
             className={`w-full h-[60px] bg-[#E7E9EB] rounded-3xl flex justify-center items-center gap-[12px] text-[20px] text-[#11293B]}`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <Image src={cart} alt='cart icon' />
-            {textData.product.view}
+            Add to cart
         </motion.button>
           {Array.isArray(likes) && likes.some(like => like === product._id) ? (
           <motion.div
