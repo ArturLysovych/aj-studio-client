@@ -25,13 +25,13 @@ export default function OrdersList() {
     const setResponse = usePopupStore(state => state.setResponse);
 
     const fetchProducts = async () => {
-        const response = await fetch('http://localhost:5000/orders/');
+        const response = await fetch('https://aj-studio-server.onrender.com/orders/');
         const responseData = await response.json();
         setOrders(responseData);
     }
 
     const setStatus = async (status: string, orderId: string) => {
-        const response = await fetch(`http://localhost:5000/orders/update-status/${orderId}/${status}`, {
+        const response = await fetch(`https://aj-studio-server.onrender.com/orders/update-status/${orderId}/${status}`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -45,7 +45,7 @@ export default function OrdersList() {
     };
 
     const removeOrder = async (orderId: string) => {
-        const response = await fetch(`http://localhost:5000/orders/delete-order/${orderId}`, {
+        const response = await fetch(`https://aj-studio-server.onrender.com/orders/delete-order/${orderId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -79,7 +79,7 @@ export default function OrdersList() {
                         <p className='text-xl font-medium'>Cart:</p>
                         {order.cart.map((item: IProduct) => (
                             <div className='flex gap-[30px]' key={item._id}>
-                                <Image width={40} height={40} src={'http://localhost:5000/uploads' + item.image} alt="item image" />
+                                <Image width={40} height={40} src={'https://aj-studio-server.onrender.com/uploads' + item.image} alt="item image" />
                                 <p>{ item.name }</p>
                                 <p>{ item._id }</p>
                             </div>

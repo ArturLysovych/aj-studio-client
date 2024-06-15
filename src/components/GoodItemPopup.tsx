@@ -31,7 +31,7 @@ export default function GoodItemPopup({ good }: { good: IProduct } ) {
                                 <Image src={cart} alt='nav icon' />
                             </div>
                         </div>
-                        <Image width={200} height={200} src={'http://localhost:5000/uploads/' + good.image} alt='product image' className='h-auto w-auto md:h-[300px] lg:w-[400px]' />
+                        <Image width={200} height={200} src={'https://aj-studio-server.onrender.com/uploads/' + good.image} alt='product image' className='h-auto w-auto md:h-[300px] lg:w-[400px]' />
                         <div className="hidden lg:block"></div>
                     </div>
                     <div className="w-full min-h-[600px] md:min-h-[700px] text-[#1A2530] bg-white flex flex-col justify-between items-start gap-[16px] rounded-t-3xl overflow-hidden shadow-black shadow-lg lg:shadow-none pt-[20px] lg:h-full lg:w-[65%]">
@@ -43,13 +43,13 @@ export default function GoodItemPopup({ good }: { good: IProduct } ) {
                             <h3 className='text-[18px] font-medium md:text-[22px]'>Gallery</h3>
                             <div className="flex justify-start gap-[16px]">
                                 <div className="w-[56px] h-[56px] md:h-[90px] md:w-[90px] rounded-2xl bg-[#F8F9FA] flex justify-center items-center">
-                                    <Image width={200} height={200} src={'http://localhost:5000/uploads/' + good.image} alt='product image' className='h-auto w-auto' />
+                                    <Image width={200} height={200} src={'https://aj-studio-server.onrender.com/uploads/' + good.image} alt='product image' className='h-auto w-auto' />
                                 </div>
                                 <div className="w-[56px] h-[56px] md:h-[90px] md:w-[90px] rounded-2xl bg-[#F8F9FA] flex justify-center items-center">
-                                    <Image width={200} height={200} src={'http://localhost:5000/uploads/' + good.image} alt='product image' className='h-auto w-auto' />
+                                    <Image width={200} height={200} src={'https://aj-studio-server.onrender.com/uploads/' + good.image} alt='product image' className='h-auto w-auto' />
                                 </div>
                                 <div className="w-[56px] h-[56px] md:h-[90px] md:w-[90px] rounded-2xl bg-[#F8F9FA] flex justify-center items-center">
-                                    <Image width={200} height={200} src={'http://localhost:5000/uploads/' + good.image} alt='product image' className='h-auto w-auto' />
+                                    <Image width={200} height={200} src={'https://aj-studio-server.onrender.com/uploads/' + good.image} alt='product image' className='h-auto w-auto' />
                                 </div>
                             </div>
                             <h3 className='text-[18px] font-medium md:text-[22px]'>Size</h3>

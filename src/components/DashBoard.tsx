@@ -16,19 +16,19 @@ const Dashboard: FC = (): JSX.Element => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const userResponse = await fetch('http://localhost:5000/admin/new-user-count-last-week');
+                const userResponse = await fetch('https://aj-studio-server.onrender.com/admin/new-user-count-last-week');
                 const userData = await userResponse.json();
                 setUsersData(userData);
     
-                const orderResponse = await fetch('http://localhost:5000/admin/new-order-count-last-week');
+                const orderResponse = await fetch('https://aj-studio-server.onrender.com/admin/new-order-count-last-week');
                 const orderData = await orderResponse.json();
                 setOrdersData(orderData);
     
-                const pendingResponse = await fetch('http://localhost:5000/orders/pending');
+                const pendingResponse = await fetch('https://aj-studio-server.onrender.com/orders/pending');
                 const pendingData = await pendingResponse.json();
                 setPendingCount(pendingData.length);
 
-                const chartResponse = await fetch('http://localhost:5000/admin/orders-for-chart');
+                const chartResponse = await fetch('https://aj-studio-server.onrender.com/admin/orders-for-chart');
                 const chartData = await chartResponse.json();
 
                 if (chartData !== null && typeof chartData === 'object' && Object.keys(chartData).length !== 0) {

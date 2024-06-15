@@ -24,7 +24,7 @@ const Admin = (): JSX.Element => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/products/${productId}`);
+                const response = await fetch(`https://aj-studio-server.onrender.com/products/${productId}`);
                 
                 if (!response.ok) {
                     throw new Error('Failed to fetch products');
@@ -117,7 +117,7 @@ const Admin = (): JSX.Element => {
         });
         
         try {
-            const response = await fetch(`http://localhost:5000/products/${productId}`, {
+            const response = await fetch(`https://aj-studio-server.onrender.com/products/${productId}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -135,7 +135,7 @@ const Admin = (): JSX.Element => {
 
     const removeProduct = async (id: string) => {
         try {
-            const response = await fetch(`http://localhost:5000/products/${id}`, {
+            const response = await fetch(`https://aj-studio-server.onrender.com/products/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`

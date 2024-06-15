@@ -9,7 +9,7 @@ export default function ProductsList() {
     const [products, setProducts] = useState<IProduct[]>([]);
     
     const fetchProducts = async () => {
-        const response = await fetch('http://localhost:5000/products/');
+        const response = await fetch('https://aj-studio-server.onrender.com/products/');
         const responseData = await response.json();
         setProducts(responseData);
     }

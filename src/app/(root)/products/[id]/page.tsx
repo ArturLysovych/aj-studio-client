@@ -15,7 +15,7 @@ export default function Product() {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/products/${productId}`);
+                const response = await fetch(`https://aj-studio-server.onrender.com/products/${productId}`);
                 
                 if (!response.ok) {
                     throw new Error('Failed to fetch product');

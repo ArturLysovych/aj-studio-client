@@ -23,7 +23,7 @@ export default function History() {
 
     const getOrders = async (userId: string) => {
         try {
-            const response = await fetch(`http://localhost:5000/orders/user-orders/${userId}`);
+            const response = await fetch(`https://aj-studio-server.onrender.com/orders/user-orders/${userId}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -54,12 +54,12 @@ export default function History() {
                     >
                         <div className="h-full overflow-y-auto w-[50%] px-[10px]">
                         {/* <div className="h-[85px] w-[85px] flex justify-center items-center bg-[white] rounded-2xl shadow-gray-100 shadow-lg sm:h-[150px] sm:w-[150px]">
-                            <Image width={85} height={85} src={'http://localhost:5000/uploads' + order.image} className='sm:w-full' alt="item image" />
+                            <Image width={85} height={85} src={'https://aj-studio-server.onrender.com/uploads' + order.image} className='sm:w-full' alt="item image" />
                         </div> */}
                             {order.cart.map((product: any, key: number) => (
                                 <div key={key} className="w-full min-h-[50px] mt-[10px] bg-gray-100 rounded-lg flex flex-wrap justify-between items-center p-[5px]">
                                     <div className="flex justify-center items-center gap-[20px]">
-                                        <Image width={50} height={50} src={'http://localhost:5000/uploads' + product.image} alt='product icon' />
+                                        <Image width={50} height={50} src={'https://aj-studio-server.onrender.com/uploads' + product.image} alt='product icon' />
                                         <p>{product.name}</p>
                                     </div>
                                     <p className='font-bold'>${product.price}</p>

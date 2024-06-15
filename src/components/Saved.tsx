@@ -37,7 +37,7 @@ const Saved: FC = () => {
 
     const getLikes = async (userId: string) => {
         try {
-            const response = await fetch(`http://localhost:5000/users/liked/${userId}`);
+            const response = await fetch(`https://aj-studio-server.onrender.com/users/liked/${userId}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -73,7 +73,7 @@ const Saved: FC = () => {
                                         <div className="w-[28px] h-[28px] rounded-full bg-[#F8F9FA] flex justify-center items-center">
                                             <IoMdHeartEmpty color='#F87265' />
                                         </div>
-                                        <Image width={100} height={100} src={'http://localhost:5000/uploads/' + like.image} className='w-[200px]' alt='product image' />
+                                        <Image width={100} height={100} src={'https://aj-studio-server.onrender.com/uploads/' + like.image} className='w-[200px]' alt='product image' />
                                     </div>
                                     <div className="flex flex-col">
                                         <h3 className="text-lg font-semibold overflow-hidden h-[23px]">{like.name}</h3>

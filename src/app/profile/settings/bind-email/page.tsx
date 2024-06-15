@@ -13,7 +13,7 @@ export default function BindEmail() {
 
     const bindEmail = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/users/${userId}/bind-email`, {
+            const response = await fetch(`https://aj-studio-server.onrender.com/users/${userId}/bind-email`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json'

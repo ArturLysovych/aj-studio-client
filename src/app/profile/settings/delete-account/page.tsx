@@ -27,7 +27,7 @@ export default function DeleteAccount() {
         try {
             const postData = { username, password };
             console.log(postData)
-            const response = await fetch('http://localhost:5000/auth/delete/', {
+            const response = await fetch('https://aj-studio-server.onrender.com/auth/delete/', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'

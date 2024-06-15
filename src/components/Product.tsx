@@ -39,7 +39,7 @@ const Product = ({ product, UAH_Value, textData }: IProps): JSX.Element => {
 
   const getLikes = async (userId: string) => {
     try {
-      const likesResponse = await fetch(`http://localhost:5000/users/likes/${userId}`);
+      const likesResponse = await fetch(`https://aj-studio-server.onrender.com/users/likes/${userId}`);
       const likesData = await likesResponse.json();
       setLikes(likesData);
     } catch (error) {
@@ -50,7 +50,7 @@ const Product = ({ product, UAH_Value, textData }: IProps): JSX.Element => {
 
   const likeProduct = async (productId: string) => {
     try {
-      const response = await fetch(`http://localhost:5000/users/${userId}/like/${productId}`, {
+      const response = await fetch(`https://aj-studio-server.onrender.com/users/${userId}/like/${productId}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${Cookies.get('access_token')}`
@@ -67,7 +67,7 @@ const Product = ({ product, UAH_Value, textData }: IProps): JSX.Element => {
 
   const viewProduct = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/users/${userId}/view/${product._id}`, {
+      const response = await fetch(`https://aj-studio-server.onrender.com/users/${userId}/view/${product._id}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${Cookies.get('access_token')}`
@@ -108,7 +108,7 @@ const Product = ({ product, UAH_Value, textData }: IProps): JSX.Element => {
               window.location.href = `/products/${product?._id}`
             }}
         >
-          <Image width={200} height={200} src={'http://localhost:5000/uploads/' + product.image} alt='product image' className='h-auto w-auto' />
+          <Image width={200} height={200} src={'https://aj-studio-server.onrender.com/uploads/' + product.image} alt='product image' className='h-auto w-auto' />
         </div>
         <h2 className='font-bold text-[18px]'>{product.name}</h2>
         <p className="flex items-center gap-[5px]">

@@ -23,7 +23,7 @@ export default function Viewed() {
 
     const getViewed = async (userId: string) => {
         try {
-            const response = await fetch(`http://localhost:5000/users/viewed/${userId}`);
+            const response = await fetch(`https://aj-studio-server.onrender.com/users/viewed/${userId}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -52,7 +52,7 @@ export default function Viewed() {
                     product ? (
                     <div key={key} className='bg-white overflow-hidden relative w-[400px] h-[180px] flex justify-between items-center rounded-xl mt-[30px]'>
                         <div className="h-full overflow-y-auto gap-[16px] flex justify-center items-center bg-gray-200 p-[20px]">
-                            <Image width={150} height={150} src={'http://localhost:5000/uploads' + product.image} alt='product icon' />
+                            <Image width={150} height={150} src={'https://aj-studio-server.onrender.com/uploads' + product.image} alt='product icon' />
                         </div>
                         <div className="h-full flex flex-col justify-center gap-[10px] p-[10px] items-start text-[#1A2530]">
                             <p className='text-[14px] font-medium sm:text-[18px]'>Created: {new Date(product.createdAt).toLocaleString()}</p>

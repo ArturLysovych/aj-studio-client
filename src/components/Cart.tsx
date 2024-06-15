@@ -46,7 +46,7 @@ const Cart: FC = () => {
         cart: cart
       };
 
-      const response = await fetch('http://localhost:5000/orders/make-order', {
+      const response = await fetch('https://aj-studio-server.onrender.com/orders/make-order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ const Cart: FC = () => {
               >
                 <div className="h-full flex gap-[16px] items-center">
                   <div className="h-[85px] w-[85px] flex justify-center items-center bg-[white] rounded-2xl shadow-gray-100 shadow-lg sm:h-[150px] sm:w-[150px]">
-                    <Image width={85} height={85} src={'http://localhost:5000/uploads' + item.image} className='sm:w-full' alt="item image" />
+                    <Image width={85} height={85} src={'https://aj-studio-server.onrender.com/uploads' + item.image} className='sm:w-full' alt="item image" />
                   </div>
                   <div className="h-full flex flex-col justify-start gap-[4px] text-[#1A2530]">
                     <p className='text-[16px] font-medium sm:text-[22px]'>{item.name}</p>

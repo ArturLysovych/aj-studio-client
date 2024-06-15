@@ -22,7 +22,7 @@ export default function Notifications() {
 
     const getNotifications = async (userId: string) => {
         try {
-            const response = await fetch(`http://localhost:5000/notifications/user/${userId}`);
+            const response = await fetch(`https://aj-studio-server.onrender.com/notifications/user/${userId}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
