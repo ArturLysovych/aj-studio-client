@@ -57,8 +57,8 @@ export default function History() {
                             <Image width={85} height={85} src={'https://aj-studio-server.onrender.com/uploads' + order.image} className='sm:w-full' alt="item image" />
                         </div> */}
                             {order.cart.map((product: any, key: number) => (
-                                <div key={key} className="w-full min-h-[50px] mt-[10px] bg-gray-100 rounded-lg flex flex-wrap justify-between items-center p-[5px]">
-                                    <div className="flex justify-center items-center gap-[20px]">
+                                <div key={key} className="w-full min-h-[50px] overflow-hidden mt-[10px] bg-gray-100 rounded-lg flex flex-wrap justify-between items-center p-[5px]">
+                                    <div className="flex justify-center items-center gap-[20px] flex-wrap">
                                         <Image width={50} height={50} src={'https://aj-studio-server.onrender.com/uploads' + product.image} alt='product icon' />
                                         <p>{product.name}</p>
                                     </div>
@@ -68,9 +68,9 @@ export default function History() {
                             ))}
                         </div>
                         <div className="h-full w-[50%] flex flex-col justify-center gap-[20px] p-[10px] items-start bg-gray-200 text-[#1A2530]">
-                        <p className='text-[18px] font-medium md:text-[20px]'>Created: {new Date(order.createdAt).toLocaleString()}</p>
-                        <p className='text-[16px] font-medium md:text-[18px]'>Status: {order.status}</p>
-                        <p className='text-[16px] md:text-[18px] text-gray-400'>ID: {order._id}</p>
+                        <p className='text-[16px] font-medium md:text-[20px]'>Created: {new Date(order.createdAt).toLocaleString()}</p>
+                        <p className='text-[14px] font-medium md:text-[18px]'>Status: {order.status}</p>
+                        <p className='text-[14px] md:text-[18px] text-gray-400'>ID: {order._id}</p>
                             {/* <Image width={20} height={20} className='cursor-pointer sm:h-[30px] sm:w-[30px]' alt="remove icon" /> */}
                         </div>
                     </div>
