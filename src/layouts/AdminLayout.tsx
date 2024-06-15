@@ -33,7 +33,7 @@ const AdminLayout = ({ children }: { children?: ReactNode }): JSX.Element => {
     useEffect(() => {
         const isAdmin = async () => {
             try {
-                const response = await fetch('http://localhost:5000/admin/is-admin', {
+                const response = await fetch('https://aj-studio-server.onrender.com/admin/is-admin', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     },

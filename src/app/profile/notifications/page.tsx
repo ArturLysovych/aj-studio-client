@@ -43,7 +43,7 @@ export default function Notifications() {
                     <h2 className='text-[16px] font-medium sm:text-[20px] md:text-[22px]'>Notifications</h2>
                     <div className='h-[50px] w-[50px]'></div>
                 </div>
-                <div className="flex flex-col-reverse gap-[20px] mt-[25px]">
+                <div className="h-full flex flex-col-reverse gap-[20px] mt-[25px] mb-[25px]">
                     {notifications.length > 0 ? (
                         notifications.map((notification: any, key) => (
                             <div key={key} className="flex flex-col justify-between items-start w-full min-h-[120px] rounded-xl overflow-hidden bg-white">
