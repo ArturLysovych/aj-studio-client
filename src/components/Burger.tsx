@@ -5,7 +5,7 @@ import logo from '../assets/images/logo.svg';
 import useCartStore from "@/store/cart.store";
 import useBurgerStore from "@/store/burger.store";
 import { IoIosClose } from "react-icons/io";
-import user_icon from '@/assets/images/header/User.svg';
+import user_icon from '@/assets/images/header/user.svg';
 import cart_icon from '@/assets/images/header/cart.svg'; 
 import heart_icon from '@/assets/images/header/heart.svg'; 
 import Link from 'next/link';
