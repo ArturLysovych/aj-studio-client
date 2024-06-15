@@ -4,7 +4,7 @@ import Image from 'next/image';
 import sidelist from '../assets/images/sidelist.svg';
 import search from '../assets/images/search.svg';
 import logo from '../assets/images/logo.svg';
-import user_icon from '../assets/images/header/User.svg';
+import user_icon from '../assets/images/header/user.svg';
 import cart_icon from '../assets/images/header/cart.svg'; 
 import heart_icon from '../assets/images/header/heart.svg'; 
 import arrow_icon from '../assets/images/header/arrow.svg';
