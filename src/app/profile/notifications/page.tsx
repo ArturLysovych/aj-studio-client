@@ -34,7 +34,7 @@ export default function Notifications() {
     }
 
     return (
-        <div className='w-full h-screen bg-[#F8F9FA] py-[8px] px-[20px] flex justify-center items-center'>
+        <div className='w-full min-h-screen bg-[#F8F9FA] py-[8px] px-[20px] flex justify-center items-center'>
             <div className="appContainer h-full w-full">
                 <div className="w-full flex justify-between items-center">
                     <Link href={'/profile'} className="bg-white h-[50px] w-[50px] shadow-sm rounded-full flex justify-center items-center cursor-pointer">
